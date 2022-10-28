@@ -1,50 +1,27 @@
 from dataclasses import dataclass
+from os import path
+from pathlib import Path
 
 from environs import Env
 
+BANNED_CONTENT: tuple = ('animation', 'audio', 'contact', 'document', 'game', 'location', 'photo',
+                         'pinned_message', 'poll', 'sticker', 'video', 'video_note', 'voice')
 
-@dataclass
-class DbConfig:
-    host: str
-    password: str
-    user: str
-    database: str
+DOWNLOAD_FOLDER: str = path.join(Path(__file__).resolve().parent, 'downloads')
+MAX_VIDEO_DURATION: int = 900
 
 
 @dataclass
 class TgBot:
     token: str
-    admin_ids: list[int]
-    use_redis: bool
-
-
-@dataclass
-class Miscellaneous:
-    other_params: str = None
 
 
 @dataclass
 class Config:
     tg_bot: TgBot
-    db: DbConfig
-    misc: Miscellaneous
 
 
-def load_config(path: str = None):
+def load_config():
     env = Env()
-    env.read_env(path)
-
-    return Config(
-        tg_bot=TgBot(
-            token=env.str("BOT_TOKEN"),
-            admin_ids=list(map(int, env.list("ADMINS"))),
-            use_redis=env.bool("USE_REDIS"),
-        ),
-        db=DbConfig(
-            host=env.str('DB_HOST'),
-            password=env.str('DB_PASS'),
-            user=env.str('DB_USER'),
-            database=env.str('DB_NAME')
-        ),
-        misc=Miscellaneous()
-    )
+    env.read_env()
+    return Config(tg_bot=TgBot(token=env.str('BOT_TOKEN')))
