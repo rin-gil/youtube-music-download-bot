@@ -1,13 +1,13 @@
 [Unit]
-Description=Course Bot
+Description=YoutubeMusicDownloadBot daemon
 After=network.target
 
 [Service]
 User=tgbot
 Group=tgbot
 Type=simple
-WorkingDirectory=/opt/tgbot
-ExecStart=/opt/tgbot/venv/bin/python bot.py
+WorkingDirectory=/opt/YoutubeMusicDownloadBot
+ExecStart=/opt/YoutubeMusicDownloadBot/venv/bin/python bot.py
 Restart=always
 
 [Install]

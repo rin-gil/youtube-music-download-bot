@@ -1,17 +1,20 @@
-# tgbot_template
+## Бот для загрузки музыки с YouTube
+Рабочая версия доступна по ссылке [https://t.me/YT_upl_Bot](https://t.me/YT_upl_Bot)
 
-<img height="30em" src="https://raw.githubusercontent.com/anki-geo/ultimate-geography/a44a569a922e1d241517113e2917736af808eed7/src/media/flags/ug-flag-united_kingdom.svg" alt="english" align = "center"/>
-This template is recommended to use in your Telegram bots written on <a href='https://github.com/aiogram/aiogram'>AIOgram</a>.
-You can see tutorials on how to create, and use it on <a href='https://botfather.dev?utm_source=github_template'>Website with course on Telegram Bots Development</a>.
-<br/><br/><br/>
+### 1. Возможности
 
+* Поиск музыки на YouTube
+* Скачивание найденных аудиофайлов в формате .mp3
 
-<img height="30em" src="https://raw.githubusercontent.com/anki-geo/ultimate-geography/a44a569a922e1d241517113e2917736af808eed7/src/media/flags/ug-flag-ukraine.svg" alt="ukrainian" align = "center"/>
-Цей шаблон рекомендовано використовувати для створення ваших Telegram-ботів, написаних на <a href='https://github.com/aiogram/aiogram'>AIOgram</a>.
-Ви можете переглянути навчальні матеріали щодо створення та використання шаблону на <a href='https://botfather.dev?utm_source=github_template'>веб-сайті з курсом із розробки ботів Telegram</a>
-<br/><br/><br/>
+### 2. Зависимости
 
+* Для своей работы скрипт использует пакеты **aiogram**, **environs**, **moviepy** и **pytube**
+* Установите их командой в терминале: `pip install -r requirements.txt`
+* Токен бота поместите в файл .env.dist и переименуйте файл в .env
 
-<img height="30em" src="https://raw.githubusercontent.com/anki-geo/ultimate-geography/a44a569a922e1d241517113e2917736af808eed7/src/media/flags/ug-flag-russia.svg" alt="russian" align = "center"/>
-Этот шаблон рекомендуется использовать для создания ваших Telegram-ботов, написанных на <a href='https://github.com/aiogram/aiogram'>AIOgram</a>.
-Учебные материалы по созданию и использованию шаблона можно найти на <a href='https://botfather.dev?utm_source=github_template'>веб-сайте с курсом по разработке ботов Telegram</a>
+### 3. Ограничения
+* Бот скачивает только музыку (аудиофайл .mp3)
+* Бот не скачивает живые трансляции
+* Плейлист не скачивается полностью, скачивается только один элемент
+* Бот не скачивает клипы продолжительностью больше 15 минут
+* Название для аудиофайла формируется из названия видео на YouTube. Поскольку в названии могут содержаться нежелательные символы, не поддерживаемые файловой системой, из названия убираются все символы, кроме букв, цифр, пробелов, знаков '_' и '-', длина названия обрезается до 100 символов

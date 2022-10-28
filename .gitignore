@@ -35,7 +35,6 @@ pip-delete-this-directory.txt
 *.mo
 *.pot
 
-
 # pyenv
 .python-version
 
@@ -51,6 +50,7 @@ __pypackages__/
 
 # Environments
 .venv
+.env
 env/
 venv/
 ENV/
@@ -60,4 +60,3 @@ venv.bak/
 # Pyre type checker
 .pyre/
 .idea/*
-.env
