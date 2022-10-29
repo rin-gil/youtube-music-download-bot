@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-    <a href="https://pypi.org/project/aiogram/2.22.2/"><img src="https://img.shields.io/badge/python-v3.7-blue" alt="python version"></a>
+    <a href="https://pypi.org/project/aiogram/2.22.2/"><img src="https://img.shields.io/badge/python-v3.7-informational" alt="python version"></a>
     <a href="https://pypi.org/project/aiogram/2.22.2/"><img src="https://img.shields.io/badge/aiogram-v2.22.2-informational" alt="aiogram version"></a>
     <a href="https://pypi.org/project/environs/9.5.0/"><img src="https://img.shields.io/badge/environs-v9.5.0-informational" alt="environs version"></a>
     <a href="https://pypi.org/project/moviepy/1.0.3/"><img src="https://img.shields.io/badge/moviepy-v1.0.3-informational" alt="moviepy version"></a>
