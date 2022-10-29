@@ -37,6 +37,7 @@ mv .env.dist .env
 * Вставьте токен бота в файл .env
 * Если хотите скачивать видео длиной более 15 минут, измените константу **MAX_VIDEO_DURATION** в файле [tgbot/config.py](https://github.com/rin-gil/YoutubeMusicDownloadBot/blob/master/tgbot/config.py), по умолчанию 900 сек. (15 минут)
 * Из-за ограничений API Telegram **MAX_VIDEO_DURATION** не нужно устанавливать более 1800 сек. - бот не сможет отправлять файлы пользователю
+* Запуск бота через файл bot.py `python bot.py`
 
 ### Ограничения
 * Бот скачивает только музыку (аудиофайл .mp3)
