@@ -1,8 +1,8 @@
-<p style="text-align:center">
+<p align="center">
     <img src="https://repository-images.githubusercontent.com/558609537/280063f1-bec4-49aa-bf56-054cdb00f8d3" alt="YouTube Music Download Bot" width="640">
 </p>
 
-<p style="text-align:center">
+<p align="center">
     <a href="https://pypi.org/project/aiogram/2.22.2/"><img src="https://img.shields.io/badge/python-v3.7-blue" alt="python version"></a>
     <a href="https://pypi.org/project/aiogram/2.22.2/"><img src="https://img.shields.io/badge/aiogram-v2.22.2-informational" alt="aiogram version"></a>
     <a href="https://pypi.org/project/environs/9.5.0/"><img src="https://img.shields.io/badge/environs-v9.5.0-informational" alt="environs version"></a>
