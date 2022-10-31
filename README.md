@@ -11,16 +11,20 @@
     <a href="https://github.com/rin-gil/YoutubeMusicDownloadBot/blob/master/LICENCE"><img src="https://img.shields.io/badge/licence-MIT-success" alt="MIT licence"></a>
 </p>
 
+<p align="right">
+    <a href="https://github.com/rin-gil/YoutubeMusicDownloadBot/blob/master/README.ru.md">Читать на русском</a>
+</p>
+
 ## YouTube Music Download Bot
 
-Бот для загрузки музыки с YouTube. Рабочая версия доступна по ссылке [https://t.me/YT_upl_Bot](https://t.me/YT_upl_Bot)
+Bot to download music from YouTube. Working version is available here [https://t.me/YT_upl_Bot](https://t.me/YT_upl_Bot)
 
-### Возможности
+### Features
 
-* Поиск музыки на YouTube
-* Скачивание найденных видео в формате .mp3
+* Search for music on YouTube
+* Downloading found videos in .mp3 format
 
-### Установка
+### Installing
 
 ```
 git clone https://github.com/rin-gil/YoutubeMusicDownloadBot.git
@@ -31,25 +35,25 @@ pip install -r requirements.txt
 mv .env.dist .env
 ```
 
-### Настройка и запуск
+### Setup and launch
 
-* Зарегистрируйте нового бота у [BotFather](https://t.me/BotFather) и скопируйте полученный токен
-* Вставьте токен бота в файл .env
-* Если хотите скачивать видео длиной более 15 минут, измените константу **MAX_VIDEO_DURATION** в файле [tgbot/config.py](https://github.com/rin-gil/YoutubeMusicDownloadBot/blob/master/tgbot/config.py), по умолчанию 900 сек. (15 минут)
-* Из-за ограничений API Telegram **MAX_VIDEO_DURATION** не нужно устанавливать более 1800 сек. - бот не сможет отправлять файлы пользователю
-* Запуск бота через файл bot.py `python bot.py`
+* Register a new bot with [BotFather](https://t.me/BotFather) and copy the obtained token
+* Insert the bot token into the .env file
+* If you want to download videos longer than 15 minutes, change the **MAX_VIDEO_DURATION** constant in [tgbot/config.py](https://github.com/rin-gil/YoutubeMusicDownloadBot/blob/master/tgbot/config.py), the default is 900 seconds (15 minutes)
+* Due to limitations of the Telegram API **MAX_VIDEO_DURATION** should not be set higher than 1800 sec. - bot will not be able to send files to the user
+* Running the bot through the bot.py file `python bot.py`
 
-### Ограничения
-* Бот скачивает только музыку (аудиофайл .mp3)
-* Бот не скачивает живые трансляции
-* Плейлист не скачивается полностью, скачивается только один элемент
-* Бот не скачивает клипы продолжительностью больше 15 минут
-* Название для аудиофайла формируется из названия видео на YouTube. Поскольку в названии могут содержаться нежелательные символы, не поддерживаемые файловой системой, из названия убираются все символы, кроме букв, цифр, пробелов, знаков '_' и '-', длина названия обрезается до 100 символов
+### Restrictions
+* Bot only downloads music (audio file .mp3)
+* Bot does not download live broadcasts
+* The entire playlist is not downloaded, only one item is downloaded
+* Bot does not download clips longer than 15 minutes
+* The title for the audio file is generated from the YouTube video title. Since the title may contain undesirable characters not supported by the file system, all characters except letters, numbers, spaces, '_' and '-' characters are removed from the title, the title length is truncated to 100 characters
 
-### Разработчики
+### Developers
 
 * [Ringil](https://github.com/rin-gil)
 
 ### License
 
-Проект YouTubeMusicDownloadBot распространяется по лицензии [MIT](https://github.com/rin-gil/YoutubeMusicDownloadBot/blob/master/LICENCE)
+YouTubeMusicDownloadBot is licensed under [MIT](https://github.com/rin-gil/YoutubeMusicDownloadBot/blob/master/LICENCE)
