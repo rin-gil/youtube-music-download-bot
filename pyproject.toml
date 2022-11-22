@@ -2,6 +2,7 @@
 fail-under = 10
 ignore = ["CVS"]
 ignore-patterns = ["^\\.#"]
+init-hook="import sys; sys.path.append('.')"
 jobs = 0
 limit-inference-results = 100
 persistent = true
@@ -18,7 +19,7 @@ class-naming-style = "PascalCase"
 const-naming-style = "UPPER_CASE"
 docstring-min-length = -1
 function-naming-style = "snake_case"
-good-names = ["i", "j", "k", "ex", "Run", "_"]
+good-names = ["dp", "i", "j", "k", "ex", "Run", "_"]
 inlinevar-naming-style = "any"
 method-naming-style = "snake_case"
 module-naming-style = "snake_case"

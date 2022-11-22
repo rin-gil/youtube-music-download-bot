@@ -1,0 +1,102 @@
+# Ukrainian translations for YoutubeMusicDownloadBot.
+# Copyright (C) 2022 Ringil
+# This file is distributed under the same license as the
+# YoutubeMusicDownloadBot project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: YoutubeMusicDownloadBot v1.1.0\n"
+"Report-Msgid-Bugs-To: noreply@domain.com\n"
+"POT-Creation-Date: 2022-11-22 20:48+0200\n"
+"PO-Revision-Date: 2022-11-22 20:48+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: uk\n"
+"Language-Team: uk <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: tgbot/handlers/callbacks.py:28 tgbot/handlers/messages.py:29
+msgid "Downloading, wait a bit..."
+msgstr "Завантажую, зачекайте трохи..."
+
+#: tgbot/handlers/callbacks.py:45
+msgid "This link is out of date"
+msgstr "Це посилання застаріле"
+
+#: tgbot/handlers/commands.py:16
+msgid "Write me the name of the song or drop me a link to video from"
+msgstr "Напиши мені назву пісні або скинь посилання на відео з"
+
+#: tgbot/handlers/commands.py:26
+msgid "I can download songs from"
+msgstr "Я можу завантажувати пісні з"
+
+#: tgbot/handlers/commands.py:28
+msgid "Write me the name of the song or drop me a link to the video"
+msgstr "Напиши мені назву пісні або скинь посилання на відео"
+
+#: tgbot/handlers/messages.py:46
+msgid "It doesn't look like a YouTube link"
+msgstr "Це не схоже на посилання з YouTube"
+
+#: tgbot/handlers/messages.py:65
+msgid "Looking, wait a bit..."
+msgstr "Шукаю, почекай трохи..."
+
+#: tgbot/handlers/messages.py:72
+msgid "Look what I found"
+msgstr "Поглянь, що я знайшов"
+
+#: tgbot/handlers/messages.py:92
+msgid "I didn't find anything"
+msgstr "Я нічого не знайшов"
+
+#: tgbot/handlers/messages.py:94
+msgid "Try looking for something else"
+msgstr "Спробуй пошукати щось інше"
+
+#: tgbot/keyboards/inline.py:15
+msgid "Download"
+msgstr "Скачати"
+
+#: tgbot/misc/commands.py:17
+msgid "Start"
+msgstr "Старт"
+
+#: tgbot/misc/commands.py:18
+msgid "Bot info"
+msgstr "Інформація про бота"
+
+#: tgbot/services/formatter.py:37
+msgid "Duration"
+msgstr "Тривалість"
+
+#: tgbot/services/misc.py:36
+msgid "Can't download songs longer than"
+msgstr "Не можу скачувати пісні довше, ніж"
+
+#: tgbot/services/misc.py:38
+msgid "minutes"
+msgstr "хвилин"
+
+#: tgbot/services/misc.py:42
+msgid "There is no audio track in the video"
+msgstr "У відео відсутня звукова доріжка"
+
+#: tgbot/services/misc.py:47
+msgid "Video is streaming live and cannot be loaded"
+msgstr "Відео транслюється в прямому ефірі і не може бути завантажено"
+
+#: tgbot/services/misc.py:51
+msgid "Video is private, restricted access, or unavailable"
+msgstr "Відео є приватним, з обмеженим доступом або недоступне"
+
+#: tgbot/services/misc.py:54
+msgid "Can't download this video"
+msgstr "Не можу скачати це відео"
+

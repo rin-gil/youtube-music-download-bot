@@ -1,91 +1,122 @@
-from os import remove
+"""Handlers of messages from user"""
 
-from aiogram import Dispatcher
+from os import remove as os_remove
+
+from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
-from aiogram.types import Message, InputFile
+from aiogram.dispatcher.filters import Text
+from aiogram.types import InputFile, Message
 
-from tgbot import MAX_VIDEO_DURATION, BANNED_CONTENT
-from tgbot.keyboards import print_search_results
-from tgbot.misc import Actions
-from tgbot.services import youtube_link, download, search_result
-
-
-async def unknown_message(message: Message, state: FSMContext) -> None:
-    """
-    Handles messages containing BANNED_CONTENT.
-
-    :param state: State from FSM
-    :param message: Message from the user
-    :return: None
-    """
-    async with state.proxy() as data:
-        if data.state == 'Actions:Lock':
-            await message.delete()
-        else:
-            await message.reply(text='🤷 Я не знаю, что с этим делать.\n\n'
-                                     'Напиши мне <b>название песни</b> или сбрось ссылку на видеоролик с '
-                                     '<a href="https://www.youtube.com">YouTube</a>')
+from tgbot.keyboards.inline import create_download_kb
+from tgbot.middlewares.localization import i18n
+from tgbot.misc.states import UserInput
+from tgbot.services.youtube import (
+    check_video_availability,
+    get_path_to_audio_file,
+    VideoAvailability,
+    search_videos,
+    VideoCard,
+)
 
 
-async def messages(message: Message, state: FSMContext) -> None:
-    """
-    Handles messages from the user that do not contain BANNED_CONTENT.
+_ = i18n.gettext  # Alias for gettext method
 
-    :param state: State from FSM
-    :param message: Message from the user
-    :return: None
-    """
-    if youtube_link(text=message.text):
-        await message.answer(text='⏬ Качаю..')
-        await Actions.Lock.set()  # Block user actions while the download is in progress.
-        audio_file: str = download(url=message.text)
-        if audio_file[-3:] == 'mp3':
-            await message.answer_audio(InputFile(path_or_bytesio=audio_file))
-            remove(audio_file)
-        elif audio_file[15:21] == 'stream':
-            await message.answer(text='❌ Я не могу скачивать живые трансляции!\n\n'
-                                      'Попробуй скачать что-то другое. 🙁')
-        elif audio_file == 'Video is too long':
-            await message.answer(text=f'❌ Упс..\n\n'
-                                      f'Это видео длится больше {round(MAX_VIDEO_DURATION / 60)} минут!\n'
-                                      f'Найди что-нибудь покороче. 😒')
-        else:
-            await message.answer(text='❌ Ошибка при отправке файла!\n\n'
-                                      'Попробуй скачать что-то другое. 🙁')
-        await state.reset_state()  # Download completed, unblock user actions.
+
+async def if_user_sent_youtube_link(message: Message, state: FSMContext) -> None:
+    """Handles the message if a user sent YouTube link"""
+    user_lang_code: str = message.from_user.language_code
+    await UserInput.Block.set()  # Block user input while the download is in progress
+    bot_reply: Message = await message.reply(text="⏬ " + _("Downloading, wait a bit...", locale=user_lang_code))
+    chat_id: int = message.from_user.id
+    bot_reply_id: int = bot_reply.message_id
+    video: VideoAvailability = await check_video_availability(url=message.text, lang_code=user_lang_code)
+    if video.available:
+        path_to_audio_file: str = await get_path_to_audio_file(url=message.text)
+        await message.reply_audio(audio=InputFile(path_to_audio_file))
+        await message.bot.delete_message(chat_id=chat_id, message_id=bot_reply_id)
+        os_remove(path_to_audio_file)
     else:
-        msg = await message.reply(text='🔍 Ищу..')
-        await Actions.Lock.set()  # Block user actions while the search is in progress.
-        search = search_result(search_query=message.text)
-        if not search:
-            await message.bot.edit_message_text(text='❌ Упс..\n\n'
-                                                     'Я не могу это найти.\n'
-                                                     'Попробуй поискать что-то другое. 😒',
-                                                chat_id=msg.chat.id, message_id=msg.message_id)
-        else:
-            await message.bot.edit_message_text(text='👇 Смотри, что я нашел:',
-                                                chat_id=msg.chat.id, message_id=msg.message_id)
-            await print_search_results(search, message)
-        await state.reset_state()  # Search completed, unblock user actions.
+        await message.bot.edit_message_text(text=f"❌ {video.description}", chat_id=chat_id, message_id=bot_reply_id)
+    await state.reset_state()  # Unblock user input, when download completed
 
 
-async def lock_messages(message: Message) -> None:
-    """
-    The stub function, deletes messages from the user while the user's actions are blocked.
+async def if_user_sent_link_not_to_youtube(message: Message) -> None:
+    """Handles the message if the user sent a link other than YouTube"""
+    user_lang_code: str = message.from_user.language_code
+    await message.reply(text="❌ " + _("It doesn't look like a YouTube link", locale=user_lang_code))
 
-    :param message: Message from the user
-    :return: None
-    """
+
+async def if_user_sent_text(message: Message, state: FSMContext) -> None:
+    """Handles the message if a user sent text"""
+    await UserInput.Block.set()  # Block user actions while the search is in progress.
+
+    user_lang_code: str = message.from_user.language_code
+    chat_id: int = message.from_user.id
+
+    # If there are previous search results in the chat, delete them
+    async with state.proxy() as data:
+        if data.get("bot_answers_ids"):
+            await message.bot.delete_message(chat_id=chat_id, message_id=data["user_message_id"])
+            await message.bot.delete_message(chat_id=chat_id, message_id=data["bot_reply_id"])
+            for bot_answer_id in data["bot_answers_ids"]:
+                await message.bot.delete_message(chat_id=chat_id, message_id=bot_answer_id)
+    await state.reset_data()
+
+    # Starting a new search
+    bot_reply: Message = await message.reply(text="🔍 " + _("Looking, wait a bit...", locale=user_lang_code))
+    bot_reply_id: int = bot_reply.message_id
+    search_results: list[VideoCard] = await search_videos(query=message.text, lang_code=user_lang_code)
+
+    # If the search results are not empty
+    if search_results:
+        await message.bot.edit_message_text(
+            text="👇 " + _("Look what I found", locale=user_lang_code) + ":",
+            chat_id=chat_id,
+            message_id=bot_reply_id,
+        )
+        bot_answers: list = []
+        for result in search_results:  # Display the search results
+            bot_answer: Message = await message.answer(
+                text=result.description,
+                reply_markup=await create_download_kb(callback_data=result.url, lang_code=user_lang_code),
+            )
+            bot_answers.append(bot_answer.message_id)
+        async with state.proxy() as data:  # Store search results in RAM
+            data["user_message_id"] = message.message_id
+            data["bot_reply_id"] = bot_reply_id
+            data["bot_answers_ids"] = bot_answers
+
+    # If the search results are empty
+    else:
+        await message.bot.edit_message_text(
+            text="❌ "
+            + _("I didn't find anything", locale=user_lang_code)
+            + "\n"
+            + _("Try looking for something else", locale=user_lang_code)
+            + " 😒",
+            chat_id=chat_id,
+            message_id=bot_reply_id,
+        )
+
+    await state.reset_state(with_data=False)  # Search completed, unblock user actions.
+
+
+async def if_user_input_block(message: Message) -> None:
+    """Deletes all user messages in the UserInput.Block state"""
+    await message.delete()
+
+
+async def if_user_sent_anything_but_text(message: Message) -> None:
+    """Deletes messages with any content from a user that is not text"""
     await message.delete()
 
 
 def register_messages(dp: Dispatcher) -> None:
-    """
-    Registers the handling of messages from the user in the Dispatcher.
-
-    :param dp: Dispatcher
-    :return: None
-    """
-    dp.register_message_handler(unknown_message, content_types=BANNED_CONTENT, state='*')
-    dp.register_message_handler(messages, content_types='text', state=None)
-    dp.register_message_handler(lock_messages, content_types='text', state=Actions.Lock)
+    """Registers message handlers, the sequence of registering handlers is important!"""
+    dp.register_message_handler(
+        if_user_sent_youtube_link, Text(startswith="https://"), regexp=r"(?:v=|\/)([0-9A-Za-z_-]{11}).*", state=None
+    )
+    dp.register_message_handler(if_user_sent_link_not_to_youtube, Text(startswith="https://"), state=None)
+    dp.register_message_handler(if_user_sent_text, content_types="text", state=None)
+    dp.register_message_handler(if_user_input_block, content_types="text", state=UserInput.Block)
+    dp.register_message_handler(if_user_sent_anything_but_text, content_types=types.ContentTypes.ANY, state="*")

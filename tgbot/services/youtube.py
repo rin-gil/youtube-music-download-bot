@@ -1,104 +1,49 @@
-from os import remove
-from time import strftime, gmtime
+"""Set of functions for working with YouTube"""
 
-from moviepy.audio.io.AudioFileClip import AudioFileClip
-from pytube import Search, YouTube
+from asyncio import get_running_loop
 
-from tgbot import MAX_VIDEO_DURATION, DOWNLOAD_FOLDER
+from pytube import YouTube
 
-
-def youtube_link(text: str) -> bool:
-    """
-    Checks if the user's message is a link to YouTube
-
-    :param text: Message from user
-    :return: True or False
-    """
-    if text.startswith('https://www.youtube.com/watch?v=') \
-            or text.startswith('https://youtube.com/watch?v=') \
-            or text.startswith('https://youtu.be/') \
-            or text.startswith('https://www.youtube.com/shorts/'):
-        return True
-    else:
-        return False
+from tgbot.config import MAX_VIDEO_DURATION
+from tgbot.middlewares.localization import i18n
+from tgbot.services.formatter import format_search_data, VideoCard
+from tgbot.services.misc import (
+    convert_mp4_to_mp3,
+    download_audio_stream,
+    check_video_available,
+    VideoAvailability,
+    get_raw_search_results,
+)
 
 
-def correct_input(name: str) -> str:
-    """
-    Removes everything from the string except letters, numbers, spaces, hyphens, and underscores.
-
-    :param name: Source string
-    :return: Processed string
-    """
-    source_string: str = name[:100]
-    processed_string: str = ''
-    for char in source_string:
-        if char.isalnum() or char == '-' or char == '_':
-            processed_string += char
-        elif char.isspace() and (not processed_string or not processed_string[-1].isspace()):
-            processed_string += char
-    return processed_string
+_ = i18n.gettext  # Alias for gettext method
 
 
-def search_result(search_query: str):
-    """
-    Search YouTube for videos requested by the user.
-
-    :param search_query: Message from user
-    :return: Nested list of the form [text to reply to user, link to video] or False
-    """
-    try:
-        search = Search(correct_input(name=search_query))
-        result: list = []
-        count: int = 0
-        while True:
-            length: int = search.results[count].length
-            # Remove live streams (0 seconds long) and videos longer than MAX_VIDEO_DURATION from search results
-            if 0 < length <= MAX_VIDEO_DURATION:
-                link: str = search.results[count].watch_url
-                title: str = search.results[count].title
-                duration: str = strftime('%M:%S', gmtime(length))
-                card: str = f'<a href="{link}"><b>{title}</b></a>\n<b>Время: {duration}</b>'
-                result.append([card, link])
-            if len(result) == 3:
-                break
-            count += 1
-        return result
-    except Exception as ex:
-        print(ex)
-        return False
+async def check_video_availability(url: str, lang_code: str) -> VideoAvailability:
+    """Runs the non-asynchronous function check_video_available as a separate task"""
+    video_availability: VideoAvailability = await get_running_loop().run_in_executor(
+        None, check_video_available, *(url, lang_code)
+    )
+    return video_availability
 
 
-def convert_mp4_to_mp3(mp4file: str, mp3file: str) -> None:
-    """
-    Converts mp4 files to mp3 files. The mp4 file is deleted after conversion.
+async def search_videos(query: str, lang_code: str) -> list[VideoCard]:
+    """Search YouTube for videos requested by the user"""
+    search_results: list[VideoCard] = []
+    raw_results: list[YouTube] = await get_running_loop().run_in_executor(None, get_raw_search_results, query)
+    for raw_result_item in raw_results:
+        if 0 < raw_result_item.length <= MAX_VIDEO_DURATION:  # Remove streams and long videos from search results
+            result_item: VideoCard = await get_running_loop().run_in_executor(
+                None, format_search_data, *(raw_result_item, lang_code)
+            )
+            search_results.append(result_item)
+        if len(search_results) == 3:
+            break
+    return search_results
 
-    :param mp4file: Path to mp4 file
-    :param mp3file: Path to mp3 file
-    :return: None
-    """
-    clip = AudioFileClip(filename=mp4file)
-    clip.write_audiofile(filename=mp3file, codec="mp3", bitrate="192k", logger=None)
-    clip.close()
-    remove(mp4file)
 
-
-def download(url: str) -> str:
-    """
-    Uploads an audio stream from YouTube in mp4 format and converts it to mp3 format.
-
-    :param url: Link to YouTube video
-    :return: The path to the downloaded file or a description of the error.
-    """
-    try:
-        yt = YouTube(url=url)
-        if yt.length <= MAX_VIDEO_DURATION:
-            audio = yt.streams.get_audio_only()
-            mp4_file: str = audio.download(DOWNLOAD_FOLDER, filename=f'{correct_input(yt.title)}.mp4')
-            mp3_file: str = f'{mp4_file[:-1]}3'
-            convert_mp4_to_mp3(mp4file=mp4_file, mp3file=mp3_file)
-            return mp3_file
-        else:
-            raise ValueError('Video is too long')
-    except Exception as ex:
-        return str(ex)
+async def get_path_to_audio_file(url: str) -> str:
+    """Returns the path to the downloaded audio file"""
+    path_to_mp4_file: str = await get_running_loop().run_in_executor(None, download_audio_stream, url)
+    path_to_mp3_file: str = await get_running_loop().run_in_executor(None, convert_mp4_to_mp3, path_to_mp4_file)
+    return path_to_mp3_file

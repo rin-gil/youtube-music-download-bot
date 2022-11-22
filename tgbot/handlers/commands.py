@@ -1,42 +1,36 @@
+"""Handlers of commands from user"""
+
 from aiogram import Dispatcher
-from aiogram.dispatcher.filters import Text
-from aiogram.types import Message
+from aiogram.types import InputFile, Message
+
+from tgbot.config import BOT_LOGO
+from tgbot.middlewares.localization import i18n
+
+_ = i18n.gettext  # Alias for gettext method
 
 
-async def commands(message: Message) -> None:
-    """
-    Handles commands from the user /start and /help.
-
-    :param message: Message from the user
-    :return: None
-    """
-    await message.delete()
-    if message.text == '/start':
-        await message.answer(text='Напиши мне <b>название песни</b> или сбрось ссылку на видеоролик с '
-                                  '<a href="https://www.youtube.com">YouTube</a>. 😉')
-    elif message.text == '/help':
-        await message.answer(text='Я умею скачивать песни с <a href="https://www.youtube.com">YouTube</a>!\n\n'
-                                  'Напиши мне <b>название песни</b>, или сбрось <b>ссылку</b> на видеоролик.')
+async def if_user_sent_command_start(message: Message) -> None:
+    """Handles command /start from the user"""
+    lang_code: str = message.from_user.language_code
+    answer_text: str = (
+        _("Write me the name of the song or drop me a link to video from", locale=lang_code)
+        + ' <a href="https://www.youtube.com">YouTube</a>. 😉'
+    )
+    await message.answer_photo(photo=InputFile(BOT_LOGO), caption=answer_text)
 
 
-async def unknown_commands(message: Message) -> None:
-    """
-    Handles unknown commands.
-
-    :param message: Message from the user
-    :return: None
-    """
-    await message.answer(text='❌ Неизвестная команда!\n\n'
-                              'Напиши мне <b>название песни</b> или сбрось ссылку на видеоролик с '
-                              '<a href="https://www.youtube.com">YouTube</a>. 😉')
+async def if_user_sent_command_about(message: Message) -> None:
+    """Handles command /about from the user"""
+    lang_code: str = message.from_user.language_code
+    answer_text: str = (
+        _("I can download songs from", locale=lang_code)
+        + ' <a href="https://www.youtube.com">YouTube</a>!\n\n'
+        + _("Write me the name of the song or drop me a link to the video", locale=lang_code)
+    )
+    await message.answer_photo(photo=InputFile(BOT_LOGO), caption=answer_text)
 
 
 def register_commands(dp: Dispatcher) -> None:
-    """
-    Registers the handling of commands from the user in the Dispatcher.
-
-    :param dp: Dispatcher
-    :return: None
-    """
-    dp.register_message_handler(commands, commands=['start', 'help'])
-    dp.register_message_handler(unknown_commands, Text(startswith='/'))
+    """Registers command handlers"""
+    dp.register_message_handler(if_user_sent_command_start, commands="start", state=None)
+    dp.register_message_handler(if_user_sent_command_about, commands="about", state=None)

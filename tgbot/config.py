@@ -1,27 +1,37 @@
+"""Configuration settings for the bot"""
+
 from dataclasses import dataclass
-from os import path
+from os.path import join
 from pathlib import Path
 
 from environs import Env
 
-BANNED_CONTENT: tuple = ('animation', 'audio', 'contact', 'document', 'game', 'location', 'photo',
-                         'pinned_message', 'poll', 'sticker', 'video', 'video_note', 'voice')
 
-DOWNLOAD_FOLDER: str = path.join(Path(__file__).resolve().parent, 'downloads')
-MAX_VIDEO_DURATION: int = 900
+_BASE_DIR: Path = Path(__file__).resolve().parent
+LOCALES_DIR: str = join(_BASE_DIR, "locales")
+TEMP_DIR: str = join(_BASE_DIR, "temp")
+LOG_FILE: str = join(_BASE_DIR, "YoutubeMusicDownloadBot.log")
+BOT_LOGO: str = join(_BASE_DIR, "assets/img/bot_logo.png")
+
+MAX_VIDEO_DURATION: int = 1200  # in seconds
 
 
 @dataclass
 class TgBot:
+    """Bot token"""
+
     token: str
 
 
 @dataclass
 class Config:
+    """Bot config"""
+
     tg_bot: TgBot
 
 
-def load_config():
+def load_config() -> Config:
+    """Loads tokens from environment variables"""
     env = Env()
     env.read_env()
-    return Config(tg_bot=TgBot(token=env.str('BOT_TOKEN')))
+    return Config(tg_bot=TgBot(token=env.str("BOT_TOKEN")))
