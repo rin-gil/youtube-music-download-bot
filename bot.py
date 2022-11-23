@@ -45,10 +45,9 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
+    log.info("Starting bot")
     try:
-        log.info("Starting bot")
         run(main())
-    except (KeyboardInterrupt, SystemExit):
-        log.info("Bot stopped!")
     except Exception as ex:
         log.error("Unknown error: %s", ex)
+    log.info("Bot stopped!")

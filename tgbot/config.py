@@ -1,8 +1,8 @@
 """Configuration settings for the bot"""
 
-from dataclasses import dataclass
 from os.path import join
 from pathlib import Path
+from typing import NamedTuple
 
 from environs import Env
 
@@ -16,15 +16,13 @@ BOT_LOGO: str = join(_BASE_DIR, "assets/img/bot_logo.png")
 MAX_VIDEO_DURATION: int = 1200  # in seconds
 
 
-@dataclass
-class TgBot:
+class TgBot(NamedTuple):
     """Bot token"""
 
     token: str
 
 
-@dataclass
-class Config:
+class Config(NamedTuple):
     """Bot config"""
 
     tg_bot: TgBot
