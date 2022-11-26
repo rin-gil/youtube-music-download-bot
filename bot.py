@@ -48,6 +48,8 @@ if __name__ == "__main__":
     log.info("Starting bot")
     try:
         run(main())
+    except (KeyboardInterrupt, SystemExit):
+        pass
     except Exception as ex:
-        log.error("Unknown error: %s", ex)
+        log.critical("Unknown error: %s", ex)
     log.info("Bot stopped!")
