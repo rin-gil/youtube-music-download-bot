@@ -43,7 +43,7 @@
 
 ## YouTube Music Download Bot
 
-Бот для завантаження музики з YouTube. Робоча версія доступна за посиланням [https://t.me/YT_upl_Bot](https://t.me/YT_upl_Bot)
+Бот для завантаження музики з YouTube. Робоча версія доступна за посиланням [@YT_upl_Bot](https://t.me/YT_upl_Bot)
 
 ### Можливості
 
@@ -63,7 +63,7 @@ mv .env.dist .env
 
 ### Налаштування та запуск
 
-* Зареєструйте нового бота у [BotFather](https://t.me/BotFather) і скопіюйте отриманий токен
+* Зареєструйте нового бота у [@BotFather](https://t.me/BotFather) і скопіюйте отриманий токен
 * Вставте токен бота у файл .env
 * Запуск бота через файл bot.py `python bot.py`
 
