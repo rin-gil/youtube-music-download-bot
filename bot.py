@@ -11,7 +11,7 @@ from tgbot.handlers.commands import register_commands
 from tgbot.handlers.messages import register_messages
 from tgbot.middlewares.localization import i18n
 from tgbot.misc.commands import set_default_commands
-from tgbot.misc.logger import log
+from tgbot.misc.logger import logger
 
 
 def register_all_middlewares(dp: Dispatcher) -> None:
@@ -45,11 +45,11 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
-    log.info("Starting bot")
+    logger.info("Starting bot")
     try:
         run(main())
     except (KeyboardInterrupt, SystemExit):
         pass
     except Exception as ex:
-        log.critical("Unknown error: %s", ex)
-    log.info("Bot stopped!")
+        logger.critical("Unknown error: %s", ex)
+    logger.info("Bot stopped!")
