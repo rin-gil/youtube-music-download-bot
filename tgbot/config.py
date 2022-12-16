@@ -10,7 +10,7 @@ from environs import Env
 _BASE_DIR: Path = Path(__file__).resolve().parent
 LOCALES_DIR: str = join(_BASE_DIR, "locales")
 TEMP_DIR: str = join(_BASE_DIR, "temp")
-LOG_FILE: str = join(_BASE_DIR, "YoutubeMusicDownloadBot.log")
+LOG_FILE: str = join(_BASE_DIR, "log.log")
 BOT_LOGO: str = join(_BASE_DIR, "assets/img/bot_logo.png")
 
 MAX_VIDEO_DURATION: int = 1200  # in seconds
