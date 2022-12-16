@@ -1,8 +1,12 @@
 """Enables logging"""
 
 import logging
+import sys
 
 from tgbot.config import LOG_FILE
+
+
+sys.tracebacklimit = 0
 
 
 logger: logging.Logger = logging.getLogger(__name__)
