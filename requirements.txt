@@ -1,4 +1,6 @@
-aiogram~=2.23.1
-environs~=9.5.0
-moviepy~=1.0.3
-pytube~=12.1.2
+aiogram==2.25.1
+aiosqlite==0.18.0
+environs==9.5.0
+matplotlib==3.7.1
+moviepy==1.0.3
+pytube==12.1.3
