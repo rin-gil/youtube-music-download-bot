@@ -13,11 +13,19 @@ _ = i18n.gettext  # Alias for gettext method
 
 
 def search_videos(query: str, lang_code: str) -> list[VideoCard]:
-    """Search YouTube for videos requested by the user"""
+    """Search on YouTube videos by user request, too long videos are removed from the results"""
     search_results: list[VideoCard] = []
     raw_results: list[YouTube] = get_raw_search_results(query=query)
     for raw_result_item in raw_results:
-        if 0 < raw_result_item.length <= MAX_VIDEO_DURATION:  # Remove streams and long videos from search results
+        # Sometimes it fails to get the duration of the video and a TypeError occurs
+        # This code snippet solves the problem
+        try:
+            video_length: int = raw_result_item.length
+        except TypeError:
+            video_length = 0
+
+        # Remove streams and long videos from search results
+        if 0 < video_length <= MAX_VIDEO_DURATION:
             result_item: VideoCard = format_search_data(raw_result_item=raw_result_item, lang_code=lang_code)
             search_results.append(result_item)
         if len(search_results) == 3:
