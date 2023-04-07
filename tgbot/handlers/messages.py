@@ -11,13 +11,8 @@ from aiogram.types import InputFile, Message
 from tgbot.keyboards.inline import create_download_kb
 from tgbot.middlewares.localization import i18n
 from tgbot.misc.states import UserInput
-from tgbot.services.youtube import (
-    check_video_availability,
-    get_path_to_audio_file,
-    VideoAvailability,
-    search_videos,
-    VideoCard,
-)
+from tgbot.services.misc import check_video_available, VideoAvailability
+from tgbot.services.youtube import get_path_to_audio_file, search_videos, VideoCard
 
 _ = i18n.gettext  # Alias for gettext method
 
@@ -29,7 +24,9 @@ async def if_user_sent_youtube_link(message: Message, state: FSMContext) -> None
     bot_reply: Message = await message.reply(text="⏬ " + _("Downloading, wait a bit...", locale=user_lang_code))
     chat_id: int = message.from_user.id
     bot_reply_id: int = bot_reply.message_id
-    video: VideoAvailability = await check_video_availability(url=message.text, lang_code=user_lang_code)
+    video: VideoAvailability = await get_running_loop().run_in_executor(
+        None, check_video_available, *(message.text, user_lang_code)
+    )
     if video.available:
         path_to_audio_file: str = await get_path_to_audio_file(url=message.text)
         await message.reply_audio(audio=InputFile(path_to_audio_file))
