@@ -19,7 +19,7 @@ class-naming-style = "PascalCase"
 const-naming-style = "UPPER_CASE"
 docstring-min-length = -1
 function-naming-style = "snake_case"
-good-names = ["dp", "i", "j", "k", "ex", "Run", "_"]
+good-names = ["dp", "db", "ex", "i", "j", "k", "Run", "_"]
 inlinevar-naming-style = "any"
 method-naming-style = "snake_case"
 module-naming-style = "snake_case"
@@ -65,7 +65,7 @@ logging-modules = ["logging"]
 [tool.pylint."messages control"]
 confidence = ["HIGH", "CONTROL_FLOW", "INFERENCE", "INFERENCE_FAILURE", "UNDEFINED"]
 disable = ["raw-checker-failed", "bad-inline-option", "locally-disabled", "file-ignored", "suppressed-message",
-    "useless-suppression", "deprecated-pragma", "use-symbolic-message-instead"]
+    "useless-suppression", "deprecated-pragma", "use-symbolic-message-instead", "arguments-differ"]
 enable = ["c-extension-no-member"]
 
 [tool.pylint.method_args]

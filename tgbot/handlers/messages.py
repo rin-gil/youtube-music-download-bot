@@ -1,23 +1,20 @@
 """Handlers of messages from user"""
 
+from asyncio import get_running_loop
 from os import remove as os_remove
 
 from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 from aiogram.types import InputFile, Message
+from aiogram.utils.exceptions import MessageToDeleteNotFound
 
 from tgbot.keyboards.inline import create_download_kb
 from tgbot.middlewares.localization import i18n
 from tgbot.misc.states import UserInput
-from tgbot.services.youtube import (
-    check_video_availability,
-    get_path_to_audio_file,
-    VideoAvailability,
-    search_videos,
-    VideoCard,
-)
-
+from tgbot.services.database import increase_downloads_counter, increase_searches_counter
+from tgbot.services.misc import check_video_available, VideoAvailability
+from tgbot.services.youtube import get_path_to_audio_file, search_videos, VideoCard
 
 _ = i18n.gettext  # Alias for gettext method
 
@@ -29,12 +26,15 @@ async def if_user_sent_youtube_link(message: Message, state: FSMContext) -> None
     bot_reply: Message = await message.reply(text="⏬ " + _("Downloading, wait a bit...", locale=user_lang_code))
     chat_id: int = message.from_user.id
     bot_reply_id: int = bot_reply.message_id
-    video: VideoAvailability = await check_video_availability(url=message.text, lang_code=user_lang_code)
+    video: VideoAvailability = await get_running_loop().run_in_executor(
+        None, check_video_available, *(message.text, user_lang_code)
+    )
     if video.available:
         path_to_audio_file: str = await get_path_to_audio_file(url=message.text)
         await message.reply_audio(audio=InputFile(path_to_audio_file))
         await message.bot.delete_message(chat_id=chat_id, message_id=bot_reply_id)
         os_remove(path_to_audio_file)
+        await increase_downloads_counter()
     else:
         await message.bot.edit_message_text(text=f"❌ {video.description}", chat_id=chat_id, message_id=bot_reply_id)
     await state.reset_state()  # Unblock user input, when download completed
@@ -56,16 +56,22 @@ async def if_user_sent_text(message: Message, state: FSMContext) -> None:
     # If there are previous search results in the chat, delete them
     async with state.proxy() as data:
         if data.get("bot_answers_ids"):
-            await message.bot.delete_message(chat_id=chat_id, message_id=data["user_message_id"])
-            await message.bot.delete_message(chat_id=chat_id, message_id=data["bot_reply_id"])
-            for bot_answer_id in data["bot_answers_ids"]:
-                await message.bot.delete_message(chat_id=chat_id, message_id=bot_answer_id)
+            try:
+                await message.bot.delete_message(chat_id=chat_id, message_id=data["user_message_id"])
+                await message.bot.delete_message(chat_id=chat_id, message_id=data["bot_reply_id"])
+                for bot_answer_id in data["bot_answers_ids"]:
+                    await message.bot.delete_message(chat_id=chat_id, message_id=bot_answer_id)
+            except MessageToDeleteNotFound:
+                pass
     await state.reset_data()
 
     # Starting a new search
     bot_reply: Message = await message.reply(text="🔍 " + _("Looking, wait a bit...", locale=user_lang_code))
     bot_reply_id: int = bot_reply.message_id
-    search_results: list[VideoCard] = await search_videos(query=message.text, lang_code=user_lang_code)
+    search_results: list[VideoCard] = await get_running_loop().run_in_executor(
+        None, search_videos, *(message.text, user_lang_code)
+    )
+    await increase_searches_counter()
 
     # If the search results are not empty
     if search_results:

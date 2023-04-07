@@ -65,12 +65,7 @@ def get_raw_search_results(query: str) -> list[YouTube]:
 
 
 def download_audio_stream(url: str) -> str:
-    """
-    Downloads audio stream from YouTube video
-
-    :param url: link to YouTube video
-    :return: path to downloaded mp4 file
-    """
+    """Downloads audio stream from YouTube video"""
     youtube_video: YouTube = YouTube(url=url)
     audio_stream: Stream = youtube_video.streams.get_audio_only()
     path_to_mp4_file: str = audio_stream.download(
@@ -80,12 +75,7 @@ def download_audio_stream(url: str) -> str:
 
 
 def convert_mp4_to_mp3(path_to_mp4_file: str) -> str:
-    """
-    Converts mp4 files to mp3 files, mp4 file is deleted after conversion
-
-    :param path_to_mp4_file: path to mp4 file
-    :return: path to the converted mp3 file
-    """
+    """Converts mp4 files to mp3 files, mp4 file is deleted after conversion"""
     path_to_mp3_file: str = f"{path_to_mp4_file[:-1]}3"
     clip: AudioFileClip = AudioFileClip(filename=path_to_mp4_file)
     clip.write_audiofile(filename=path_to_mp3_file, codec="mp3", bitrate="128k", logger=None)

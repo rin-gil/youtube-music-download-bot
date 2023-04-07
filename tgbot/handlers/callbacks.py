@@ -8,6 +8,7 @@ from aiogram.types import CallbackQuery, InputFile
 
 from tgbot.misc.states import UserInput
 from tgbot.middlewares.localization import i18n
+from tgbot.services.database import increase_downloads_counter
 from tgbot.services.youtube import get_path_to_audio_file
 
 
@@ -39,6 +40,7 @@ async def if_user_clicks_download(call: CallbackQuery, state: FSMContext) -> Non
         )
         await call.bot.delete_message(chat_id=chat_id, message_id=data["bot_reply_id"])
         os_remove(audio_file)
+        await increase_downloads_counter()
 
     # If the bot was restarted and now there is no data in RAM in state.proxy()
     except KeyError:

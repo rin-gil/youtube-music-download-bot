@@ -3,4 +3,5 @@ aiosqlite==0.18.0
 environs==9.5.0
 matplotlib==3.7.1
 moviepy==1.0.3
+numpy==1.24.2
 pytube==12.1.3
