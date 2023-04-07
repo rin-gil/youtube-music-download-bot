@@ -7,6 +7,7 @@ from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 from aiogram.types import InputFile, Message
+from aiogram.utils.exceptions import MessageToDeleteNotFound
 
 from tgbot.keyboards.inline import create_download_kb
 from tgbot.middlewares.localization import i18n
@@ -53,10 +54,13 @@ async def if_user_sent_text(message: Message, state: FSMContext) -> None:
     # If there are previous search results in the chat, delete them
     async with state.proxy() as data:
         if data.get("bot_answers_ids"):
-            await message.bot.delete_message(chat_id=chat_id, message_id=data["user_message_id"])
-            await message.bot.delete_message(chat_id=chat_id, message_id=data["bot_reply_id"])
-            for bot_answer_id in data["bot_answers_ids"]:
-                await message.bot.delete_message(chat_id=chat_id, message_id=bot_answer_id)
+            try:
+                await message.bot.delete_message(chat_id=chat_id, message_id=data["user_message_id"])
+                await message.bot.delete_message(chat_id=chat_id, message_id=data["bot_reply_id"])
+                for bot_answer_id in data["bot_answers_ids"]:
+                    await message.bot.delete_message(chat_id=chat_id, message_id=bot_answer_id)
+            except MessageToDeleteNotFound:
+                pass
     await state.reset_data()
 
     # Starting a new search
