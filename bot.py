@@ -6,6 +6,8 @@ from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 from tgbot.config import Config, load_config
+from tgbot.filters.admin import AdminFilter
+from tgbot.handlers.admin import register_admin
 from tgbot.handlers.callbacks import register_callbacks
 from tgbot.handlers.commands import register_commands
 from tgbot.handlers.errors import register_errors
@@ -13,6 +15,7 @@ from tgbot.handlers.messages import register_messages
 from tgbot.middlewares.localization import i18n
 from tgbot.misc.commands import set_default_commands
 from tgbot.misc.logger import logger
+from tgbot.services.database import database_init
 
 
 def register_all_middlewares(dp: Dispatcher) -> None:
@@ -20,8 +23,14 @@ def register_all_middlewares(dp: Dispatcher) -> None:
     dp.middleware.setup(i18n)
 
 
+def register_all_filters(dp: Dispatcher) -> None:
+    """Registers filters"""
+    dp.filters_factory.bind(AdminFilter)
+
+
 def register_all_handlers(dp: Dispatcher) -> None:
     """Registers handlers"""
+    register_admin(dp)
     register_commands(dp)
     register_messages(dp)
     register_callbacks(dp)
@@ -33,9 +42,12 @@ async def main() -> None:
     config: Config = load_config()
     bot: Bot = Bot(token=config.tg_bot.token, parse_mode="HTML")
     dp: Dispatcher = Dispatcher(bot=bot, storage=MemoryStorage())
+    bot["config"] = config
     try:  # Start bot
         register_all_middlewares(dp)
+        register_all_filters(dp)
         register_all_handlers(dp)
+        await database_init()
         await set_default_commands(dp)
         await dp.skip_updates()
         await dp.start_polling()

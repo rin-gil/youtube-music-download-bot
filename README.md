@@ -21,6 +21,9 @@
     <a href="https://pypi.org/project/moviepy/1.0.3/">
         <img src="https://img.shields.io/badge/moviepy-v1.0.3-informational" alt="moviepy version">
     </a>
+    <a href="https://pypi.org/project/numpy/1.24.2/">
+        <img src="https://img.shields.io/badge/numpy-v1.24.2-informational" alt="numpy version">
+    </a>
     <a href="https://pypi.org/project/pytube/12.1.3/">
         <img src="https://img.shields.io/badge/pytube-v12.1.2-informational" alt="pytube version">
     </a>

@@ -2,27 +2,35 @@
 # Copyright (C) 2022 Ringil
 # This file is distributed under the same license as the
 # YoutubeMusicDownloadBot project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+# Ringil <noreply@domain.com>, 2022.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: YoutubeMusicDownloadBot v1.1.0\n"
+"Project-Id-Version: YoutubeMusicDownloadBot v1.2.0\n"
 "Report-Msgid-Bugs-To: noreply@domain.com\n"
-"POT-Creation-Date: 2022-11-22 20:48+0200\n"
+"POT-Creation-Date: 2023-04-07 19:19+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Ringil <noreply@domain.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: tgbot/handlers/callbacks.py:28 tgbot/handlers/messages.py:29
+#: tgbot/handlers/admin.py:25
+msgid "Bot statistics by months"
+msgstr ""
+
+#: tgbot/handlers/admin.py:30
+msgid "Error in plotting the graph"
+msgstr ""
+
+#: tgbot/handlers/callbacks.py:29 tgbot/handlers/messages.py:26
 msgid "Downloading, wait a bit..."
 msgstr ""
 
-#: tgbot/handlers/callbacks.py:45
+#: tgbot/handlers/callbacks.py:47
 msgid "This link is out of date"
 msgstr ""
 
@@ -38,23 +46,31 @@ msgstr ""
 msgid "Write me the name of the song or drop me a link to the video"
 msgstr ""
 
+#: tgbot/handlers/errors.py:19
+msgid "Error when searching for a video"
+msgstr ""
+
+#: tgbot/handlers/errors.py:31
+msgid "Error downloading the video"
+msgstr ""
+
 #: tgbot/handlers/messages.py:46
 msgid "It doesn't look like a YouTube link"
 msgstr ""
 
-#: tgbot/handlers/messages.py:65
+#: tgbot/handlers/messages.py:69
 msgid "Looking, wait a bit..."
 msgstr ""
 
-#: tgbot/handlers/messages.py:72
+#: tgbot/handlers/messages.py:79
 msgid "Look what I found"
 msgstr ""
 
-#: tgbot/handlers/messages.py:92
+#: tgbot/handlers/messages.py:99
 msgid "I didn't find anything"
 msgstr ""
 
-#: tgbot/handlers/messages.py:94
+#: tgbot/handlers/messages.py:101
 msgid "Try looking for something else"
 msgstr ""
 
@@ -72,6 +88,54 @@ msgstr ""
 
 #: tgbot/services/formatter.py:37
 msgid "Duration"
+msgstr ""
+
+#: tgbot/services/formatter.py:44
+msgid "Jan"
+msgstr ""
+
+#: tgbot/services/formatter.py:45
+msgid "Feb"
+msgstr ""
+
+#: tgbot/services/formatter.py:46
+msgid "Mar"
+msgstr ""
+
+#: tgbot/services/formatter.py:47
+msgid "Apr"
+msgstr ""
+
+#: tgbot/services/formatter.py:48
+msgid "May"
+msgstr ""
+
+#: tgbot/services/formatter.py:49
+msgid "Jun"
+msgstr ""
+
+#: tgbot/services/formatter.py:50
+msgid "Jul"
+msgstr ""
+
+#: tgbot/services/formatter.py:51
+msgid "Aug"
+msgstr ""
+
+#: tgbot/services/formatter.py:52
+msgid "Sep"
+msgstr ""
+
+#: tgbot/services/formatter.py:53
+msgid "Oct"
+msgstr ""
+
+#: tgbot/services/formatter.py:54
+msgid "Nov"
+msgstr ""
+
+#: tgbot/services/formatter.py:55
+msgid "Dec"
 msgstr ""
 
 #: tgbot/services/misc.py:36
@@ -98,3 +162,14 @@ msgstr ""
 msgid "Can't download this video"
 msgstr ""
 
+#: tgbot/services/statistics.py:39
+msgid "Downloads"
+msgstr ""
+
+#: tgbot/services/statistics.py:40
+msgid "Searches"
+msgstr ""
+
+#: tgbot/services/statistics.py:57
+msgid "Chart of bot usage by date"
+msgstr ""
