@@ -27,15 +27,13 @@ async def check_video_availability(url: str, lang_code: str) -> VideoAvailabilit
     return video_availability
 
 
-async def search_videos(query: str, lang_code: str) -> list[VideoCard]:
+def search_videos(query: str, lang_code: str) -> list[VideoCard]:
     """Search YouTube for videos requested by the user"""
     search_results: list[VideoCard] = []
-    raw_results: list[YouTube] = await get_running_loop().run_in_executor(None, get_raw_search_results, query)
+    raw_results: list[YouTube] = get_raw_search_results(query=query)
     for raw_result_item in raw_results:
         if 0 < raw_result_item.length <= MAX_VIDEO_DURATION:  # Remove streams and long videos from search results
-            result_item: VideoCard = await get_running_loop().run_in_executor(
-                None, format_search_data, *(raw_result_item, lang_code)
-            )
+            result_item: VideoCard = format_search_data(raw_result_item=raw_result_item, lang_code=lang_code)
             search_results.append(result_item)
         if len(search_results) == 3:
             break

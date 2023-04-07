@@ -1,5 +1,6 @@
 """Handlers of messages from user"""
 
+from asyncio import get_running_loop
 from os import remove as os_remove
 
 from aiogram import Dispatcher, types
@@ -17,7 +18,6 @@ from tgbot.services.youtube import (
     search_videos,
     VideoCard,
 )
-
 
 _ = i18n.gettext  # Alias for gettext method
 
@@ -65,7 +65,9 @@ async def if_user_sent_text(message: Message, state: FSMContext) -> None:
     # Starting a new search
     bot_reply: Message = await message.reply(text="🔍 " + _("Looking, wait a bit...", locale=user_lang_code))
     bot_reply_id: int = bot_reply.message_id
-    search_results: list[VideoCard] = await search_videos(query=message.text, lang_code=user_lang_code)
+    search_results: list[VideoCard] = await get_running_loop().run_in_executor(
+        None, search_videos, *(message.text, user_lang_code)
+    )
 
     # If the search results are not empty
     if search_results:
