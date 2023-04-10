@@ -11,7 +11,7 @@ from matplotlib.container import BarContainer
 from matplotlib.figure import Figure
 from numpy import ndarray
 
-from tgbot.config import TEMP_DIR
+from tgbot.config import STATS_BG_IMAGE, TEMP_DIR
 from tgbot.middlewares.localization import i18n
 from tgbot.misc.logger import logger
 from tgbot.services.formatter import format_date
@@ -58,6 +58,12 @@ def plot_download_graph(downloads_data: BotStatisticsData, locale: str) -> str |
         axes.set_yticks([])  # Remove labels on the ordinate axis
         axes.set_xticks(range_of_dates + width, dates)  # Add the labels on the abscissa axis
         axes.legend(loc="upper left", ncols=2)  # Legend for charts
+
+        # Add background image on chart
+        bg_image = plt.imread(fname=STATS_BG_IMAGE, format="png")
+        x_min, x_max = axes.get_xlim()
+        y_min, y_max = axes.get_ylim()
+        axes.imshow(bg_image, extent=(x_min, x_max, y_min, y_max), aspect="auto", alpha=0.3)
 
         # Save the chart to a file
         path_to_statistics_graph: str = path.join(TEMP_DIR, "stats.png")
