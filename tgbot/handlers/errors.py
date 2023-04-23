@@ -22,7 +22,7 @@ async def errors_handler(update: Update, exception: TelegramAPIError) -> bool:
         logger.error(
             "When processing the update with id=%s there was a unhandled error: %s. Message text: %s.",
             update.update_id,
-            exception,
+            repr(exception),
             update.message.text,
         )
     elif update.callback_query:
@@ -33,14 +33,14 @@ async def errors_handler(update: Update, exception: TelegramAPIError) -> bool:
         logger.error(
             "When processing the update with id=%s there was a unhandled error: %s. Message text: %s.",
             update.update_id,
-            exception,
+            repr(exception),
             update.callback_query.message.text,
         )
     else:
         logger.error(
             "When processing the update with id=%s there was a unhandled error: %s",
             update.update_id,
-            exception,
+            repr(exception),
         )
     await UserInput.previous()
     return True
