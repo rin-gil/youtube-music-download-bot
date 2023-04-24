@@ -29,19 +29,14 @@ async def database_init() -> None:
         sys_exit()
 
 
-async def get_downloads_data() -> BotStatisticsData:
-    """Returns the number of YouTube Shorts uploads made by the bot in the last 12 months"""
+async def get_statistics_data() -> BotStatisticsData:
+    """Returns the number of downloads and searches made by the bot on YouTube in the last 12 months"""
     dates: list = []
     downloads: list = []
     searches: list = []
     async with connect(database=DB_FILE) as db:
         async with db.execute(
-            """
-            SELECT date, downloads, searches
-            FROM counters
-            ORDER BY date DESC
-            LIMIT 12;
-            """
+                """SELECT date, downloads, searches FROM counters ORDER BY date DESC LIMIT 12;"""
         ) as cursor:
             async for row in cursor:
                 dates.append(row[0])

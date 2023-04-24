@@ -7,8 +7,8 @@ from aiogram.types import InputFile, Message
 
 from tgbot.config import BOT_LOGO
 from tgbot.middlewares.localization import i18n
-from tgbot.services.database import get_downloads_data
-from tgbot.services.statistics import get_path_to_statistics_graph
+from tgbot.services.database import get_statistics_data
+from tgbot.services.statistics import bot_statistics
 
 _ = i18n.gettext  # Alias for gettext method
 
@@ -16,8 +16,8 @@ _ = i18n.gettext  # Alias for gettext method
 async def if_admin_sent_command_stats(message: Message) -> None:
     """Shows statistics for administrators"""
     lang_code: str = message.from_user.language_code
-    path_to_statistics_graph: str | None = await get_path_to_statistics_graph(
-        downloads_data=await get_downloads_data(), locale=lang_code
+    path_to_statistics_graph: str | None = await bot_statistics.get_path_to_statistics_graph(
+        downloads_data=await get_statistics_data(), locale=lang_code
     )
     if path_to_statistics_graph:
         await message.reply_photo(
