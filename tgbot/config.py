@@ -33,6 +33,6 @@ class Config(NamedTuple):
 
 def load_config() -> Config:
     """Loads tokens from environment variables"""
-    env = Env()
+    env: Env = Env()
     env.read_env()
     return Config(tg_bot=TgBot(token=env.str("BOT_TOKEN"), admin_ids=tuple(map(int, env.list("ADMINS")))))
