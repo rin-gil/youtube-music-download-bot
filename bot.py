@@ -15,7 +15,7 @@ from tgbot.handlers.messages import register_messages
 from tgbot.middlewares.localization import i18n
 from tgbot.misc.commands import set_default_commands
 from tgbot.misc.logger import logger
-from tgbot.services.database import database_init
+from tgbot.services.database import database
 
 
 def register_all_middlewares(dp: Dispatcher) -> None:
@@ -47,7 +47,7 @@ async def main() -> None:
         register_all_middlewares(dp)
         register_all_filters(dp)
         register_all_handlers(dp)
-        await database_init()
+        await database.init()
         await set_default_commands(dp)
         await dp.skip_updates()
         await dp.start_polling()

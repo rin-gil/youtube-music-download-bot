@@ -12,7 +12,7 @@ from aiogram.utils.exceptions import MessageToDeleteNotFound
 from tgbot.keyboards.inline import create_download_kb
 from tgbot.middlewares.localization import i18n
 from tgbot.misc.states import UserInput
-from tgbot.services.database import increase_downloads_counter, increase_searches_counter
+from tgbot.services.database import database
 from tgbot.services.misc import check_video_available, VideoAvailability
 from tgbot.services.youtube import get_path_to_audio_file, search_videos, VideoCard
 
@@ -34,7 +34,7 @@ async def if_user_sent_youtube_link(message: Message, state: FSMContext) -> None
         await message.reply_audio(audio=InputFile(path_to_audio_file))
         await message.bot.delete_message(chat_id=chat_id, message_id=bot_reply_id)
         os_remove(path_to_audio_file)
-        await increase_downloads_counter()
+        await database.increase_downloads_counter()
     else:
         await message.bot.edit_message_text(text=f"❌ {video.description}", chat_id=chat_id, message_id=bot_reply_id)
     await state.reset_state()  # Unblock user input, when download completed
@@ -71,7 +71,7 @@ async def if_user_sent_text(message: Message, state: FSMContext) -> None:
     search_results: list[VideoCard] = await get_running_loop().run_in_executor(
         None, search_videos, *(message.text, user_lang_code)
     )
-    await increase_searches_counter()
+    await database.increase_searches_counter()
 
     # If the search results are not empty
     if search_results:
