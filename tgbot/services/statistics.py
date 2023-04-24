@@ -15,7 +15,6 @@ from numpy import ndarray
 from tgbot.config import STATS_BG_IMAGE, TEMP_DIR
 from tgbot.middlewares.localization import i18n
 from tgbot.misc.logger import logger
-from tgbot.services.formatter import format_date
 
 _ = i18n.gettext  # Alias for gettext method
 
@@ -37,14 +36,32 @@ class PlottingBotStatistics:
             makedirs(TEMP_DIR)
 
     @staticmethod
-    def _plot_download_graph(downloads_data: BotStatisticsData, locale: str) -> str | None:
+    def _format_date(date: str, locale: str) -> str:
+        """Returns the formatted date value in the user's local language"""
+        month_in_user_local_language: dict[str, str] = {
+            "01": _("Jan", locale=locale),
+            "02": _("Feb", locale=locale),
+            "03": _("Mar", locale=locale),
+            "04": _("Apr", locale=locale),
+            "05": _("May", locale=locale),
+            "06": _("Jun", locale=locale),
+            "07": _("Jul", locale=locale),
+            "08": _("Aug", locale=locale),
+            "09": _("Sep", locale=locale),
+            "10": _("Oct", locale=locale),
+            "11": _("Nov", locale=locale),
+            "12": _("Dec", locale=locale),
+        }
+        return f"{month_in_user_local_language.get(date[5:])}\n{date[:4]}"
+
+    def _plot_download_graph(self, downloads_data: BotStatisticsData, locale: str) -> str | None:
         """Builds an image of the download graph and saves it to a file"""
         try:
             figure: Figure = plt.figure(figsize=(12, 9))
             axes: Axes = figure.add_subplot()
 
             # Let's get the data for the graph
-            dates: list[str] = [format_date(date=date, locale=locale) for date in downloads_data.date]
+            dates: list[str] = [self._format_date(date=date, locale=locale) for date in downloads_data.date]
             counters: dict[str, list[int]] = {
                 _("Downloads", locale=locale): downloads_data.downloads_counter,
                 _("Searches", locale=locale): downloads_data.searches_counter,
