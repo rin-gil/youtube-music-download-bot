@@ -28,7 +28,7 @@ async def errors_handler(update: Update, exception: TelegramAPIError) -> bool:
     elif update.callback_query:
         await update.bot.send_message(
             chat_id=update.callback_query.message.chat.id,
-            text="❌ " + _("Error downloading the video", locale=update.callback_query.from_user.language_code),
+            text="❌ " + _("Failed to download an audio file", locale=update.callback_query.from_user.language_code),
         )
         logger.error(
             "When processing the update with id=%s there was a unhandled error: %s. Message text: %s.",

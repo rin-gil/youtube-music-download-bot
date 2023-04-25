@@ -1,6 +1,5 @@
 """Handlers of messages from user"""
 
-from asyncio import get_running_loop
 from os import remove as os_remove
 
 from aiogram import Dispatcher, types
@@ -9,34 +8,52 @@ from aiogram.dispatcher.filters import Text
 from aiogram.types import InputFile, Message
 from aiogram.utils.exceptions import MessageToDeleteNotFound
 
+from tgbot.config import MAX_DURATION
 from tgbot.keyboards.inline import create_download_kb
 from tgbot.middlewares.localization import i18n
 from tgbot.misc.states import UserInput
 from tgbot.services.database import database
-from tgbot.services.misc import check_video_available, VideoAvailability
-from tgbot.services.youtube import get_path_to_audio_file, search_videos, VideoCard
+from tgbot.services.youtube import youtube, VideoInfo
 
 _ = i18n.gettext  # Alias for gettext method
 
 
 async def if_user_sent_youtube_link(message: Message, state: FSMContext) -> None:
     """Handles the message if a user sent YouTube link"""
+    await database.increase_downloads_counter()
     user_lang_code: str = message.from_user.language_code
     await UserInput.Block.set()  # Block user input while the download is in progress
     bot_reply: Message = await message.reply(text="⏬ " + _("Downloading, wait a bit...", locale=user_lang_code))
     chat_id: int = message.from_user.id
     bot_reply_id: int = bot_reply.message_id
-    video: VideoAvailability = await get_running_loop().run_in_executor(
-        None, check_video_available, *(message.text, user_lang_code)
-    )
-    if video.available:
-        path_to_audio_file: str = await get_path_to_audio_file(url=message.text)
+    path_to_audio_file: str | None = await youtube.download_audio(message.text)
+    if path_to_audio_file:
         await message.reply_audio(audio=InputFile(path_to_audio_file))
         await message.bot.delete_message(chat_id=chat_id, message_id=bot_reply_id)
         os_remove(path_to_audio_file)
-        await database.increase_downloads_counter()
     else:
-        await message.bot.edit_message_text(text=f"❌ {video.description}", chat_id=chat_id, message_id=bot_reply_id)
+        await message.bot.edit_message_text(
+            text="❌ "
+            + _("Failed to download an audio file", locale=user_lang_code)
+            + "\n\n"
+            + _("Possible reasons:", locale=user_lang_code)
+            + "\n"
+            + "  - "
+            + _("video is unavailable", locale=user_lang_code)
+            + "\n"
+            + "  - "
+            + _("video with limited access", locale=user_lang_code)
+            + "\n"
+            + "  - "
+            + _("this is a live broadcast", locale=user_lang_code)
+            + "\n"
+            + "  - "
+            + _("video is longer than", locale=user_lang_code)
+            + f" {MAX_DURATION} "
+            + _("seconds", locale=user_lang_code),
+            chat_id=chat_id,
+            message_id=bot_reply_id,
+        )
     await state.reset_state()  # Unblock user input, when download completed
 
 
@@ -48,6 +65,7 @@ async def if_user_sent_link_not_to_youtube(message: Message) -> None:
 
 async def if_user_sent_text(message: Message, state: FSMContext) -> None:
     """Handles the message if a user sent text"""
+    await database.increase_searches_counter()
     await UserInput.Block.set()  # Block user actions while the search is in progress.
 
     user_lang_code: str = message.from_user.language_code
@@ -68,10 +86,7 @@ async def if_user_sent_text(message: Message, state: FSMContext) -> None:
     # Starting a new search
     bot_reply: Message = await message.reply(text="🔍 " + _("Looking, wait a bit...", locale=user_lang_code))
     bot_reply_id: int = bot_reply.message_id
-    search_results: list[VideoCard] = await get_running_loop().run_in_executor(
-        None, search_videos, *(message.text, user_lang_code)
-    )
-    await database.increase_searches_counter()
+    search_results: list[VideoInfo] | None = await youtube.search_videos(message.text, user_lang_code)
 
     # If the search results are not empty
     if search_results:
@@ -120,7 +135,14 @@ async def if_user_sent_anything_but_text(message: Message) -> None:
 def register_messages(dp: Dispatcher) -> None:
     """Registers message handlers, the sequence of registering handlers is important!"""
     dp.register_message_handler(
-        if_user_sent_youtube_link, Text(startswith="https://"), regexp=r"(?:v=|\/)([0-9A-Za-z_-]{11}).*", state=None
+        if_user_sent_youtube_link,
+        Text(startswith="https://"),
+        regexp=(
+            r"(?:https?://)?(?:www\.)?"
+            r"(?:youtube\.com/(?:watch\?v=|embed/)|youtu\.be/|youtube.com/shorts/)"
+            r"([a-zA-Z0-9_-]{11})"
+        ),
+        state=None,
     )
     dp.register_message_handler(if_user_sent_link_not_to_youtube, Text(startswith="https://"), state=None)
     dp.register_message_handler(if_user_sent_text, content_types="text", state=None)

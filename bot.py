@@ -8,6 +8,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from tgbot.config import Config, load_config
 from tgbot.filters.admin import AdminFilter
 from tgbot.handlers.admin import register_admin
+
 from tgbot.handlers.callbacks import register_callbacks
 from tgbot.handlers.commands import register_commands
 from tgbot.handlers.errors import register_errors
@@ -65,5 +66,5 @@ if __name__ == "__main__":
     except (KeyboardInterrupt, SystemExit):
         pass
     except Exception as ex:
-        logger.critical("Unknown error: %s", ex)
+        logger.critical("Unknown error: %s", repr(ex))
     logger.info("Bot stopped!")
