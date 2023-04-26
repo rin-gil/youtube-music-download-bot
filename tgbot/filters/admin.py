@@ -9,7 +9,7 @@ from tgbot.config import Config
 class AdminFilter(BoundFilter):
     """Allows to define administrators"""
 
-    key = "is_admin"
+    key: str = "is_admin"
 
     def __init__(self, is_admin: bool | None = None):
         self.is_admin = is_admin

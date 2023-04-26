@@ -18,14 +18,14 @@
     <a href="https://pypi.org/project/matplotlib/3.7.1/">
         <img src="https://img.shields.io/badge/matplotlib-v3.7.1-informational" alt="matplotlib version">
     </a>
-    <a href="https://pypi.org/project/moviepy/1.0.3/">
-        <img src="https://img.shields.io/badge/moviepy-v1.0.3-informational" alt="moviepy version">
-    </a>
     <a href="https://pypi.org/project/numpy/1.24.2/">
         <img src="https://img.shields.io/badge/numpy-v1.24.2-informational" alt="numpy version">
     </a>
-    <a href="https://pypi.org/project/pytube/12.1.3/">
-        <img src="https://img.shields.io/badge/pytube-v12.1.3-informational" alt="pytube version">
+    <a href="https://pypi.org/project/static-ffmpeg/2.5/">
+        <img src="https://img.shields.io/badge/static_ffmpeg-v2.5-informational" alt="static-ffmpeg version">
+    </a>
+    <a href="https://pypi.org/project/yt-dlp/2023.3.4/">
+        <img src="https://img.shields.io/badge/yt_dlp-v2023.3.4-informational" alt="yt-dlp version">
     </a>
     <a href="https://github.com/psf/black">
         <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-black.svg">
@@ -81,7 +81,7 @@ mv .env.dist .env
 * Бот завантажує тільки музику (аудіофайл .mp3)
 * Бот не завантажує живі трансляції
 * Плейлист не завантажується повністю, завантажується тільки один елемент
-* Бот не скачує кліпи тривалістю понад 20 хвилин
+* Бот не скачує кліпи тривалістю понад 15 хвилин
 * Назва для аудіофайлу формується з назви відео на YouTube. Оскільки в назві можуть міститися небажані символи, що не підтримуються файловою системою, з назви прибираються всі символи, крім букв, цифр, пробілів, знаків '_' і '-', довжина назви обрізається до 100 символів.
 
 ### Локалізація

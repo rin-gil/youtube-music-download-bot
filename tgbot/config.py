@@ -15,7 +15,7 @@ LOG_FILE: str = join(_BASE_DIR, "log.log")
 BOT_LOGO: str = normpath(join(_BASE_DIR, "tgbot/assets/img/bot_logo.png"))
 STATS_BG_IMAGE: str = normpath(join(_BASE_DIR, "tgbot/assets/img/stats_bg.png"))
 
-MAX_VIDEO_DURATION: int = 1200  # in seconds
+MAX_DURATION: int = 900  # in seconds
 
 
 class TgBot(NamedTuple):
@@ -33,6 +33,6 @@ class Config(NamedTuple):
 
 def load_config() -> Config:
     """Loads tokens from environment variables"""
-    env = Env()
+    env: Env = Env()
     env.read_env()
     return Config(tg_bot=TgBot(token=env.str("BOT_TOKEN"), admin_ids=tuple(map(int, env.list("ADMINS")))))

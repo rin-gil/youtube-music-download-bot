@@ -2,17 +2,16 @@
 # Copyright (C) 2022 Ringil
 # This file is distributed under the same license as the
 # YoutubeMusicDownloadBot project.
-# Ringil <noreply@domain.com>, 2022.
+# Ringil <e.ringil@proton.me>, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: YoutubeMusicDownloadBot v1.2.0\n"
-"Report-Msgid-Bugs-To: noreply@domain.com\n"
-"POT-Creation-Date: 2023-04-07 19:19+0300\n"
-"PO-Revision-Date: 2023-04-07 19:23+0300\n"
-"Last-Translator: Ringil <noreply@domain.com>\n"
+"Project-Id-Version: YoutubeMusicDownloadBot v1.3.0\n"
+"Report-Msgid-Bugs-To: e.ringil@proton.me\n"
+"POT-Creation-Date: 2023-04-26 08:15+0300\n"
+"PO-Revision-Date: 2023-04-26 08:18+0300\n"
+"Last-Translator: Ringil <e.ringil@proton.me>\n"
 "Language: uk\n"
-"Language-Team: uk <LL@li.org>\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 "MIME-Version: 1.0\n"
@@ -20,13 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: tgbot/handlers/admin.py:25
+#: tgbot/handlers/admin.py:23
 msgid "Bot statistics by months"
 msgstr "Статистика бота по місяцях"
-
-#: tgbot/handlers/admin.py:30
-msgid "Error in plotting the graph"
-msgstr "Помилка при побудові графіка"
 
 #: tgbot/handlers/callbacks.py:29 tgbot/handlers/messages.py:26
 msgid "Downloading, wait a bit..."
@@ -52,27 +47,51 @@ msgstr "Напиши мені назву пісні або скинь посил
 msgid "Error when searching for a video"
 msgstr "Помилка при пошуку відео"
 
-#: tgbot/handlers/errors.py:31
-msgid "Error downloading the video"
-msgstr "Помилка завантаження відео"
+#: tgbot/handlers/errors.py:31 tgbot/handlers/messages.py:37
+msgid "Failed to download an audio file"
+msgstr "Не вдалося завантажити аудіофайл"
 
-#: tgbot/handlers/messages.py:46
+#: tgbot/handlers/messages.py:39
+msgid "Possible reasons:"
+msgstr "Можливі причини:"
+
+#: tgbot/handlers/messages.py:42
+msgid "video is unavailable"
+msgstr "відео недоступне"
+
+#: tgbot/handlers/messages.py:45
+msgid "video with limited access"
+msgstr "відео з обмеженим доступом"
+
+#: tgbot/handlers/messages.py:48
+msgid "this is a live broadcast"
+msgstr "це пряма трансляція"
+
+#: tgbot/handlers/messages.py:51
+msgid "video is longer than"
+msgstr "відео довше, ніж"
+
+#: tgbot/handlers/messages.py:53
+msgid "seconds"
+msgstr "секунд"
+
+#: tgbot/handlers/messages.py:63
 msgid "It doesn't look like a YouTube link"
 msgstr "Це не схоже на посилання з YouTube"
 
-#: tgbot/handlers/messages.py:69
+#: tgbot/handlers/messages.py:87
 msgid "Looking, wait a bit..."
 msgstr "Шукаю, почекай трохи..."
 
-#: tgbot/handlers/messages.py:79
+#: tgbot/handlers/messages.py:94
 msgid "Look what I found"
 msgstr "Поглянь, що я знайшов"
 
-#: tgbot/handlers/messages.py:99
+#: tgbot/handlers/messages.py:114
 msgid "I didn't find anything"
 msgstr "Я нічого не знайшов"
 
-#: tgbot/handlers/messages.py:101
+#: tgbot/handlers/messages.py:116
 msgid "Try looking for something else"
 msgstr "Спробуй пошукати щось інше"
 
@@ -88,90 +107,66 @@ msgstr "Старт"
 msgid "Bot info"
 msgstr "Інформація про бота"
 
-#: tgbot/services/formatter.py:37
-msgid "Duration"
-msgstr "Тривалість"
-
-#: tgbot/services/formatter.py:44
+#: tgbot/services/statistics.py:41
 msgid "Jan"
 msgstr "Січ"
 
-#: tgbot/services/formatter.py:45
+#: tgbot/services/statistics.py:42
 msgid "Feb"
 msgstr "Лют"
 
-#: tgbot/services/formatter.py:46
+#: tgbot/services/statistics.py:43
 msgid "Mar"
 msgstr "Бер"
 
-#: tgbot/services/formatter.py:47
+#: tgbot/services/statistics.py:44
 msgid "Apr"
 msgstr "Кві"
 
-#: tgbot/services/formatter.py:48
+#: tgbot/services/statistics.py:45
 msgid "May"
 msgstr "Тра"
 
-#: tgbot/services/formatter.py:49
+#: tgbot/services/statistics.py:46
 msgid "Jun"
 msgstr "Чер"
 
-#: tgbot/services/formatter.py:50
+#: tgbot/services/statistics.py:47
 msgid "Jul"
 msgstr "Лип"
 
-#: tgbot/services/formatter.py:51
+#: tgbot/services/statistics.py:48
 msgid "Aug"
 msgstr "Сер"
 
-#: tgbot/services/formatter.py:52
+#: tgbot/services/statistics.py:49
 msgid "Sep"
 msgstr "Вер"
 
-#: tgbot/services/formatter.py:53
+#: tgbot/services/statistics.py:50
 msgid "Oct"
 msgstr "Жов"
 
-#: tgbot/services/formatter.py:54
+#: tgbot/services/statistics.py:51
 msgid "Nov"
 msgstr "Лис"
 
-#: tgbot/services/formatter.py:55
+#: tgbot/services/statistics.py:52
 msgid "Dec"
 msgstr "Гру"
 
-#: tgbot/services/misc.py:36
-msgid "Can't download songs longer than"
-msgstr "Не можу скачувати пісні довше, ніж"
-
-#: tgbot/services/misc.py:38
-msgid "minutes"
-msgstr "хвилин"
-
-#: tgbot/services/misc.py:42
-msgid "There is no audio track in the video"
-msgstr "У відео відсутня звукова доріжка"
-
-#: tgbot/services/misc.py:47
-msgid "Video is streaming live and cannot be loaded"
-msgstr "Відео транслюється в прямому ефірі і не може бути завантажено"
-
-#: tgbot/services/misc.py:51
-msgid "Video is private, restricted access, or unavailable"
-msgstr "Відео є приватним, з обмеженим доступом або недоступне"
-
-#: tgbot/services/misc.py:54
-msgid "Can't download this video"
-msgstr "Не вдається завантажити це відео"
-
-#: tgbot/services/statistics.py:39
+#: tgbot/services/statistics.py:77
 msgid "Downloads"
 msgstr "Завантаження"
 
-#: tgbot/services/statistics.py:40
+#: tgbot/services/statistics.py:78
 msgid "Searches"
 msgstr "Пошуки"
 
-#: tgbot/services/statistics.py:57
+#: tgbot/services/statistics.py:95
 msgid "Chart of bot usage by date"
 msgstr "Графік використання бота за датами"
+
+#: tgbot/services/youtube.py:49
+msgid "Duration"
+msgstr "Тривалість"
