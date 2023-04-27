@@ -68,7 +68,7 @@ class PlottingBotStatistics:
             Path to the saved image file with the graph or None
         """
 
-        figure: Figure = plt.figure(figsize=(12, 9))
+        figure: Figure = plt.figure(figsize=(12, 8))
         axes: Axes = figure.add_subplot()
 
         # Let's get the data for the graph
@@ -101,7 +101,7 @@ class PlottingBotStatistics:
         bg_image: ndarray = plt.imread(fname=STATS_BG_IMAGE, format="png")
         x_min, x_max = axes.get_xlim()
         y_min, y_max = axes.get_ylim()
-        axes.imshow(bg_image, extent=(x_min, x_max, y_min, y_max), aspect="auto", alpha=0.3)
+        axes.imshow(bg_image, extent=(x_min, x_max, y_min, y_max), aspect="auto", alpha=0.9)
 
         # Save the chart to a file
         path_to_statistics_graph: str = join(TEMP_DIR, "stats.png")

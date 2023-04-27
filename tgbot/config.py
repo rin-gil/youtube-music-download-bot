@@ -12,7 +12,7 @@ DB_FILE: str = normpath(join(_BASE_DIR, "tgbot/db.sqlite3"))
 LOCALES_DIR: str = normpath(join(_BASE_DIR, "tgbot/locales"))
 TEMP_DIR: str = normpath(join(_BASE_DIR, "tgbot/temp"))
 LOG_FILE: str = join(_BASE_DIR, "log.log")
-BOT_LOGO: str = normpath(join(_BASE_DIR, "tgbot/assets/img/bot_logo.png"))
+BOT_LOGO: str = normpath(join(_BASE_DIR, "tgbot/assets/img/bot_logo.jpg"))
 STATS_BG_IMAGE: str = normpath(join(_BASE_DIR, "tgbot/assets/img/stats_bg.png"))
 
 MAX_DURATION: int = 900  # in seconds
