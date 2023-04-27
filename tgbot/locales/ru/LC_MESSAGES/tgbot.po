@@ -43,11 +43,11 @@ msgstr "Я могу скачать песни с"
 msgid "Write me the name of the song or drop me a link to the video"
 msgstr "Напиши мне название песни или скинь ссылку на видео"
 
-#: tgbot/handlers/errors.py:19
-msgid "Error when searching for a video"
-msgstr "Ошибка при поиске видео"
+#: tgbot/handlers/errors.py:31
+msgid "Unexpected error. We will fix it in the near future."
+msgstr "Неожиданная ошибка. Мы исправим ее в ближайшем будущем."
 
-#: tgbot/handlers/errors.py:31 tgbot/handlers/messages.py:37
+#: tgbot/handlers/messages.py:37
 msgid "Failed to download an audio file"
 msgstr "Не удалось загрузить аудиофайл"
 
