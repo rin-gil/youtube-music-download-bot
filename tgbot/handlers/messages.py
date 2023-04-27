@@ -145,6 +145,6 @@ def register_messages(dp: Dispatcher) -> None:
         state=None,
     )
     dp.register_message_handler(if_user_sent_link_not_to_youtube, Text(startswith="https://"), state=None)
-    dp.register_message_handler(if_user_sent_text, content_types="text", state=None)
-    dp.register_message_handler(if_user_input_block, content_types="text", state=UserInput.Block)
-    dp.register_message_handler(if_user_sent_anything_but_text, content_types=types.ContentTypes.ANY, state="*")
+    dp.register_message_handler(if_user_sent_text, content_types=types.ContentTypes.TEXT, state=None)
+    dp.register_message_handler(if_user_input_block, content_types=types.ContentTypes.TEXT, state=UserInput.Block)
+    dp.register_message_handler(if_user_sent_anything_but_text, content_types=types.ContentTypes.ANY)
