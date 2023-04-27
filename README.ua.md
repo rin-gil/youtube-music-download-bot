@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://repository-images.githubusercontent.com/558609537/280063f1-bec4-49aa-bf56-054cdb00f8d3" alt="YouTube Music Download Bot" width="640">
+    <img src="https://repository-images.githubusercontent.com/558609537/96515af2-a015-4470-a760-448352f38a98" alt="YouTube Music Download Bot" width="640">
 </p>
 
 <p align="center">
