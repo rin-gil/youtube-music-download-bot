@@ -4,7 +4,8 @@ from os.path import join
 from time import gmtime, strftime
 from typing import Any, NamedTuple
 
-import static_ffmpeg
+from static_ffmpeg import add_paths
+from static_ffmpeg.run import get_or_fetch_platform_executables_else_raise
 from yt_dlp import YoutubeDL
 from yt_dlp.utils import YoutubeDLError
 
@@ -27,8 +28,9 @@ class YouTube:
     """Describes methods for working with YouTube videos"""
 
     def __init__(self) -> None:
-        """Downloads ffmpeg binaries and adds them to the environment variables."""
-        static_ffmpeg.add_paths()
+        """Loads ffmpeg binaries and adds their parameters"""
+        add_paths()
+        self._ffmpeg, self._ffprobe = get_or_fetch_platform_executables_else_raise()
 
     @staticmethod
     def _remove_unwanted_chars(string: str) -> str:
@@ -117,6 +119,8 @@ class YouTube:
         """
         options: dict = {
             "format": "m4a/bestaudio/best",
+            "ffmpeg_location": self._ffmpeg,
+            "ffprobe_location": self._ffprobe,
             "geo_bypass": True,
             "noplaylist": True,
             "noprogress": True,
