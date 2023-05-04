@@ -117,7 +117,6 @@ class YouTube:
             The path to the uploaded audio file,
             or None if the original audio file was longer than MAX_DURATION or is a live broadcast
         """
-
         options: dict = {
             "format": "m4a/bestaudio/best",
             "ffmpeg_location": self._ffmpeg,
