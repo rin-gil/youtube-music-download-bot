@@ -14,15 +14,15 @@
     </a>
     <a href="https://pypi.org/project/environs/9.5.0/">
         <img src="https://img.shields.io/badge/environs-v9.5.0-informational" alt="environs version">
+    <a href="https://pypi.org/project/imageio-ffmpeg/0.4.8/">
+        <img src="https://img.shields.io/badge/imageio_ffmpeg-v0.4.8-informational" alt="static-ffmpeg version">
+    </a>
     </a>
     <a href="https://pypi.org/project/matplotlib/3.7.1/">
         <img src="https://img.shields.io/badge/matplotlib-v3.7.1-informational" alt="matplotlib version">
     </a>
     <a href="https://pypi.org/project/numpy/1.24.2/">
         <img src="https://img.shields.io/badge/numpy-v1.24.2-informational" alt="numpy version">
-    </a>
-    <a href="https://pypi.org/project/static-ffmpeg/2.5/">
-        <img src="https://img.shields.io/badge/static_ffmpeg-v2.5-informational" alt="static-ffmpeg version">
     </a>
     <a href="https://pypi.org/project/yt-dlp/2023.3.4/">
         <img src="https://img.shields.io/badge/yt_dlp-v2023.3.4-informational" alt="yt-dlp version">

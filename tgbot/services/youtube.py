@@ -1,11 +1,13 @@
 """Set of functions for working with YouTube"""
 
+from os import listdir
 from os.path import join
+from sys import exit as sys_exit
 from time import gmtime, strftime
 from typing import Any, NamedTuple
 
-from static_ffmpeg import add_paths
-from static_ffmpeg.run import get_or_fetch_platform_executables_else_raise
+from imageio_ffmpeg import get_ffmpeg_exe
+from pkg_resources import resource_filename
 from yt_dlp import YoutubeDL
 from yt_dlp.utils import YoutubeDLError
 
@@ -29,8 +31,25 @@ class YouTube:
 
     def __init__(self) -> None:
         """Loads ffmpeg binaries and adds their parameters"""
-        add_paths()
-        self._ffmpeg, self._ffprobe = get_or_fetch_platform_executables_else_raise()
+        path_to_ffmpeg: str | None = self._get_path_to_ffmpeg()
+        if path_to_ffmpeg:
+            self._path_to_ffmpeg = path_to_ffmpeg
+        else:
+            logger.critical("The path to the ffmpeg file was not found, or ffmpeg is not installed")
+            sys_exit()
+
+    @staticmethod
+    def _get_path_to_ffmpeg() -> str | None:
+        """Returns the path to the ffmpeg binary file"""
+        try:
+            path_to_ffmpeg_exe: str = get_ffmpeg_exe()
+            if isinstance(path_to_ffmpeg_exe, str):
+                return path_to_ffmpeg_exe
+        except RuntimeError:
+            ffmpeg_bin_dir: str = resource_filename("imageio_ffmpeg", "binaries")
+            ffmpeg_filename: str = [file for file in listdir(ffmpeg_bin_dir) if file.startswith("ffmpeg")][0]
+            return join(ffmpeg_bin_dir, ffmpeg_filename)
+        return None
 
     @staticmethod
     def _remove_unwanted_chars(string: str) -> str:
@@ -119,8 +138,7 @@ class YouTube:
         """
         options: dict = {
             "format": "m4a/bestaudio/best",
-            "ffmpeg_location": self._ffmpeg,
-            "ffprobe_location": self._ffprobe,
+            "ffmpeg_location": self._path_to_ffmpeg,
             "geo_bypass": True,
             "noplaylist": True,
             "noprogress": True,
@@ -144,9 +162,7 @@ class YouTube:
                 # Set save folder and file name
                 title: str = video_info.get("title")
                 path_to_file: str = join(TEMP_DIR, f"{self._remove_unwanted_chars(string=title)}")
-                params: dict = getattr(ydl, "params")
-                params.update({"outtmpl": {"default": path_to_file}})
-                setattr(ydl, "params", params)
+                ydl.params.update({"outtmpl": {"default": path_to_file}})
 
                 # Load an audio stream and convert it to mp3
                 ydl.download(youtube_watch_url)
