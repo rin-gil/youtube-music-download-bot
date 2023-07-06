@@ -4,4 +4,4 @@ environs==9.5.0
 imageio-ffmpeg==0.4.8
 matplotlib==3.7.1
 numpy==1.24.2
-yt-dlp==2023.3.4
+yt-dlp==2023.7.6
