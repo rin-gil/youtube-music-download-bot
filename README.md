@@ -9,8 +9,8 @@
     <a href="https://pypi.org/project/aiogram/2.25.1/">
         <img src="https://img.shields.io/badge/aiogram-v2.25.1-informational" alt="aiogram version">
     </a>
-    <a href="https://pypi.org/project/aiosqlite/0.18.0/">
-        <img src="https://img.shields.io/badge/aiosqlite-v0.18.0-informational" alt="aiosqlite version">
+    <a href="https://pypi.org/project/asyncpg/0.28.0/">
+        <img src="https://img.shields.io/badge/asyncpg-v0.28.0-informational" alt="asyncpg version">
     </a>
     <a href="https://pypi.org/project/environs/9.5.0/">
         <img src="https://img.shields.io/badge/environs-v9.5.0-informational" alt="environs version">
@@ -18,34 +18,37 @@
         <img src="https://img.shields.io/badge/imageio_ffmpeg-v0.4.8-informational" alt="static-ffmpeg version">
     </a>
     </a>
-    <a href="https://pypi.org/project/matplotlib/3.7.1/">
-        <img src="https://img.shields.io/badge/matplotlib-v3.7.1-informational" alt="matplotlib version">
+    <a href="https://pypi.org/project/matplotlib/3.7.2/">
+        <img src="https://img.shields.io/badge/matplotlib-v3.7.2-informational" alt="matplotlib version">
     </a>
-    <a href="https://pypi.org/project/numpy/1.24.2/">
-        <img src="https://img.shields.io/badge/numpy-v1.24.2-informational" alt="numpy version">
+    <a href="https://pypi.org/project/numpy/1.25.2/">
+        <img src="https://img.shields.io/badge/numpy-v1.25.2-informational" alt="numpy version">
     </a>
-    <a href="https://pypi.org/project/yt-dlp/2023.3.4/">
-        <img src="https://img.shields.io/badge/yt_dlp-v2023.3.4-informational" alt="yt-dlp version">
+    <a href="https://pypi.org/project/yt-dlp/22023.7.6/">
+        <img src="https://img.shields.io/badge/yt_dlp-v2023.7.6-informational" alt="yt-dlp version">
     </a>
+</p>
+
+<p align="center">
     <a href="https://github.com/psf/black">
         <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-black.svg">
     </a>
-    <a href="https://github.com/rin-gil/YoutubeMusicDownloadBot/actions/workflows/tests.yml">
-        <img src="https://github.com/rin-gil/YoutubeMusicDownloadBot/actions/workflows/tests.yml/badge.svg" alt="Code tests">
+    <a href="https://github.com/rin-gil/youtube-music-download-bot/actions/workflows/tests.yml">
+        <img src="https://github.com/rin-gil/youtube-music-download-bot/actions/workflows/tests.yml/badge.svg" alt="Code tests">
     </a>
-    <a href="https://github.com/rin-gil/YoutubeMusicDownloadBot/actions/workflows/codeql.yml">
-        <img src="https://github.com/rin-gil/YoutubeMusicDownloadBot/actions/workflows/codeql.yml/badge.svg" alt="Code tests">
+    <a href="https://github.com/rin-gil/youtube-music-download-bot/actions/workflows/codeql.yml">
+        <img src="https://github.com/rin-gil/youtube-music-download-bot/actions/workflows/codeql.yml/badge.svg" alt="Code tests">
     </a>
-    <a href="https://github.com/rin-gil/YoutubeMusicDownloadBot/blob/master/LICENCE">
+    <a href="https://github.com/rin-gil/youtube-music-download-bot/blob/master/LICENCE">
         <img src="https://img.shields.io/badge/licence-MIT-success" alt="MIT licence">
     </a>
 </p>
 
 <p align="right">
-    <a href="https://github.com/rin-gil/YoutubeMusicDownloadBot/blob/master/README.ru.md">
+    <a href="https://github.com/rin-gil/youtube-music-download-bot/blob/master/README.ru.md">
         <img src="https://raw.githubusercontent.com/rin-gil/rin-gil/main/assets/img/icons/flags/russia_24x24.png" alt="Ru">
     </a>
-    <a href="https://github.com/rin-gil/YoutubeMusicDownloadBot/blob/master/README.ua.md">
+    <a href="https://github.com/rin-gil/youtube-music-download-bot/blob/master/README.ua.md">
         <img src="https://raw.githubusercontent.com/rin-gil/rin-gil/main/assets/img/icons/flags/ukraine_24x24.png" alt="Ua">
     </a>
 </p>
@@ -59,22 +62,47 @@ Bot to download music from YouTube. Working version is available here [@YT_upl_B
 * Search for music on YouTube
 * Downloading found videos in .mp3 format
 
-### Installing
+### Installing Bot
+
+If you want a simple version of the bot, without using Postgres database and without working in webhook mode, go to [this branch](https://github.com/rin-gil/youtube-music-download-bot/tree/simple-with-sqlite-no-webhook).
+
+Install the bot with the command in the terminal:
 
 ```
-git clone https://github.com/rin-gil/YoutubeMusicDownloadBot.git
-cd YoutubeMusicDownloadBot
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-mv .env.dist .env
+wget https://raw.githubusercontent.com/rin-gil/youtube-music-download-bot/master/infrastructure/deploy.sh && chmod +x deploy.sh && ./deploy.sh
 ```
+
+### Installing and setup Postgres
+
+Install the Postgres database according to the instructions from the official website: https://www.postgresql.org/download/
+
+The work of the bot is tested on Postgres version 15
+
+Create the database, user, and settings by running the commands in the terminal:
+
+```
+sudo -u postgres psql
+CREATE DATABASE db_name;
+CREATE USER db_user WITH PASSWORD 'db_password';
+\connect db_name;
+CREATE SCHEMA db_name AUTHORIZATION db_user;
+ALTER ROLE db_user SET client_encoding TO 'utf8';
+ALTER ROLE db_user SET default_transaction_isolation TO 'read committed';
+ALTER ROLE db_user SET timezone TO 'UTC';
+\q
+```
+
+Replace _db_name_, _db_user_ and _db_password_ in these commands with your data.
 
 ### Setup and launch
 
 * Register a new bot with [@BotFather](https://t.me/BotFather) and copy the obtained token
-* Insert the bot token into the .env file
+* Insert the bot token and database credentials into the .env file
 * Running the bot through the bot.py file `python bot.py`
+
+### Additional configuration
+
+Example configurations for running the bot in webhook mode or as a systemd service can be found in the [infrastructure](https://github.com/rin-gil/youtube-music-download-bot/tree/master/infrastructure) folder
 
 ### Restrictions
 
@@ -84,39 +112,10 @@ mv .env.dist .env
 * Bot does not download clips longer than 15 minutes
 * The title for the audio file is generated from the YouTube video title. Since the title may contain undesirable characters not supported by the file system, all characters except letters, numbers, spaces, '_' and '-' characters are removed from the title, the title length is truncated to 100 characters
 
-### Localization
-
-* Since version 1.1.0 the bot added localization for English, Ukrainian and Russian
-* To add a translation in your language, do the following:
-  1. go to the folder with the bot
-  2. activate the virtual environment:
-
-     `source venv/bin/activate`
-  3. create a translation file for your language, where **{language}** is the [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) language code
-
-     `pybabel init --input-file=tgbot/locales/tgbot.pot --output-dir=tgbot/locales --domain=tgbot --locale={language}`
-  4. translate the lines in the file **locales/{language}/LC_MESSAGES/tgbot.po**
-  5. compile the translation with the command:
-
-     `pybabel compile --directory=tgbot/locales --domain=tgbot`
-  6. restart the bot
-* If you change the lines to be translated in the code, you will need to completely recreate and compile the 
-  translation files for all localizations:
-  1. extract strings to be translated from the code:
-
-     `pybabel extract --input-dirs=./tgbot --output-file=tgbot/locales/tgbot.pot --sort-by-file --project=YoutubeMusicDownloadBot`
-  2. create translation files for all localizations:
-
-     `pybabel init --input-file=tgbot/locales/tgbot.pot --output-dir=tgbot/locales --domain=tgbot --locale={language}`
-  3. compile translations:
-
-     `pybabel compile --directory=tgbot/locales --domain=tgbot`
-* You can read more about this in the example from the documentation of [aiogram](https://docs.aiogram.dev/en/latest/examples/i18n_example.html)
-
 ### Developers
 
 * [Ringil](https://github.com/rin-gil)
 
 ### License
 
-YouTubeMusicDownloadBot is licensed under [MIT](https://github.com/rin-gil/YoutubeMusicDownloadBot/blob/master/LICENCE)
+YouTubeMusicDownloadBot is licensed under [MIT](https://github.com/rin-gil/youtube-music-download-bot/blob/master/LICENCE.md)
