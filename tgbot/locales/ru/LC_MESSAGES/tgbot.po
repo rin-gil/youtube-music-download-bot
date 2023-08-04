@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: YoutubeMusicDownloadBot v1.3.0\n"
+"Project-Id-Version: YoutubeMusicDownloadBot v1.4.0\n"
 "Report-Msgid-Bugs-To: e.ringil@proton.me\n"
 "POT-Creation-Date: 2023-04-26 08:15+0300\n"
-"PO-Revision-Date: 2023-04-26 08:18+0300\n"
+"PO-Revision-Date: 2023-08-04 17:37+0300\n"
 "Last-Translator: Ringil <e.ringil@proton.me>\n"
 "Language: ru\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
@@ -19,15 +19,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: tgbot/handlers/admin.py:23
+#: tgbot/handlers/admin.py:24
 msgid "Bot statistics by months"
 msgstr "Статистика бота по месяцам"
 
-#: tgbot/handlers/callbacks.py:29 tgbot/handlers/messages.py:26
+#: tgbot/handlers/callbacks.py:28 tgbot/handlers/messages.py:25
 msgid "Downloading, wait a bit..."
 msgstr "Скачиваю, подожди немного..."
 
-#: tgbot/handlers/callbacks.py:47
+#: tgbot/handlers/callbacks.py:49
 msgid "This link is out of date"
 msgstr "Эта ссылка устарела"
 
@@ -47,51 +47,51 @@ msgstr "Напиши мне название песни или скинь ссы
 msgid "Unexpected error. We will fix it in the near future."
 msgstr "Неожиданная ошибка. Мы исправим ее в ближайшем будущем."
 
-#: tgbot/handlers/messages.py:37
+#: tgbot/handlers/messages.py:39
 msgid "Failed to download an audio file"
 msgstr "Не удалось загрузить аудиофайл"
 
-#: tgbot/handlers/messages.py:39
+#: tgbot/handlers/messages.py:41
 msgid "Possible reasons:"
 msgstr "Возможные причины:"
 
-#: tgbot/handlers/messages.py:42
+#: tgbot/handlers/messages.py:44
 msgid "video is unavailable"
 msgstr "видео недоступно"
 
-#: tgbot/handlers/messages.py:45
+#: tgbot/handlers/messages.py:47
 msgid "video with limited access"
 msgstr "видео с ограниченным доступом"
 
-#: tgbot/handlers/messages.py:48
+#: tgbot/handlers/messages.py:50
 msgid "this is a live broadcast"
 msgstr "это прямая трансляция"
 
-#: tgbot/handlers/messages.py:51
+#: tgbot/handlers/messages.py:53
 msgid "video is longer than"
 msgstr "видео длиннее, чем"
 
-#: tgbot/handlers/messages.py:53
+#: tgbot/handlers/messages.py:55
 msgid "seconds"
 msgstr "секунд"
 
-#: tgbot/handlers/messages.py:63
+#: tgbot/handlers/messages.py:65
 msgid "It doesn't look like a YouTube link"
 msgstr "Это не похоже на ссылку с YouTube"
 
-#: tgbot/handlers/messages.py:87
+#: tgbot/handlers/messages.py:91
 msgid "Looking, wait a bit..."
 msgstr "Ищу, подожди немного..."
 
-#: tgbot/handlers/messages.py:94
+#: tgbot/handlers/messages.py:98
 msgid "Look what I found"
 msgstr "Смотри, что я нашел"
 
-#: tgbot/handlers/messages.py:114
+#: tgbot/handlers/messages.py:118
 msgid "I didn't find anything"
 msgstr "Я ничего не нашел"
 
-#: tgbot/handlers/messages.py:116
+#: tgbot/handlers/messages.py:120
 msgid "Try looking for something else"
 msgstr "Попробуй поискать что-то другое"
 
@@ -167,6 +167,6 @@ msgstr "Поиски"
 msgid "Chart of bot usage by date"
 msgstr "Диаграмма использования бота по датам"
 
-#: tgbot/services/youtube.py:49
+#: tgbot/services/youtube.py:70
 msgid "Duration"
 msgstr "Продолжительность"

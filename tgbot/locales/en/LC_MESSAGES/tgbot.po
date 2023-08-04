@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: YoutubeMusicDownloadBot v1.3.0\n"
+"Project-Id-Version: YoutubeMusicDownloadBot v1.4.0\n"
 "Report-Msgid-Bugs-To: e.ringil@proton.me\n"
 "POT-Creation-Date: 2023-04-26 08:15+0300\n"
-"PO-Revision-Date: 2023-04-26 08:18+0300\n"
+"PO-Revision-Date: 2023-08-04 17:36+0300\n"
 "Last-Translator: Ringil <e.ringil@proton.me>\n"
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: tgbot/handlers/admin.py:23
+#: tgbot/handlers/admin.py:24
 msgid "Bot statistics by months"
 msgstr "Bot statistics by months"
 
-#: tgbot/handlers/callbacks.py:29 tgbot/handlers/messages.py:26
+#: tgbot/handlers/callbacks.py:28 tgbot/handlers/messages.py:25
 msgid "Downloading, wait a bit..."
 msgstr "Downloading, wait a bit..."
 
-#: tgbot/handlers/callbacks.py:47
+#: tgbot/handlers/callbacks.py:49
 msgid "This link is out of date"
 msgstr "This link is out of date"
 
@@ -46,51 +46,51 @@ msgstr "Write me the name of the song or drop me a link to the video"
 msgid "Unexpected error. We will fix it in the near future."
 msgstr "Unexpected error. We will fix it in the near future."
 
-#: tgbot/handlers/messages.py:37
+#: tgbot/handlers/messages.py:39
 msgid "Failed to download an audio file"
 msgstr "Failed to download an audio file"
 
-#: tgbot/handlers/messages.py:39
+#: tgbot/handlers/messages.py:41
 msgid "Possible reasons:"
 msgstr "Possible reasons:"
 
-#: tgbot/handlers/messages.py:42
+#: tgbot/handlers/messages.py:44
 msgid "video is unavailable"
 msgstr "video is unavailable"
 
-#: tgbot/handlers/messages.py:45
+#: tgbot/handlers/messages.py:47
 msgid "video with limited access"
 msgstr "video with limited access"
 
-#: tgbot/handlers/messages.py:48
+#: tgbot/handlers/messages.py:50
 msgid "this is a live broadcast"
 msgstr "this is a live broadcast"
 
-#: tgbot/handlers/messages.py:51
+#: tgbot/handlers/messages.py:53
 msgid "video is longer than"
 msgstr "video is longer than"
 
-#: tgbot/handlers/messages.py:53
+#: tgbot/handlers/messages.py:55
 msgid "seconds"
 msgstr "seconds"
 
-#: tgbot/handlers/messages.py:63
+#: tgbot/handlers/messages.py:65
 msgid "It doesn't look like a YouTube link"
 msgstr "It doesn't look like a YouTube link"
 
-#: tgbot/handlers/messages.py:87
+#: tgbot/handlers/messages.py:91
 msgid "Looking, wait a bit..."
 msgstr "Looking, wait a bit..."
 
-#: tgbot/handlers/messages.py:94
+#: tgbot/handlers/messages.py:98
 msgid "Look what I found"
 msgstr "Look what I found"
 
-#: tgbot/handlers/messages.py:114
+#: tgbot/handlers/messages.py:118
 msgid "I didn't find anything"
 msgstr "I didn't find anything"
 
-#: tgbot/handlers/messages.py:116
+#: tgbot/handlers/messages.py:120
 msgid "Try looking for something else"
 msgstr "Try looking for something else"
 
@@ -166,6 +166,6 @@ msgstr "Searches"
 msgid "Chart of bot usage by date"
 msgstr "Chart of bot usage by date"
 
-#: tgbot/services/youtube.py:49
+#: tgbot/services/youtube.py:70
 msgid "Duration"
 msgstr "Duration"
