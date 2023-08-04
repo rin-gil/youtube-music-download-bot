@@ -245,7 +245,7 @@ cython_debug/
 #.idea/
 
 # Environments
-.env
+src/.env
 venv/
 
 # Logs
