@@ -12,5 +12,6 @@ rm -r -f .git
 mv src/* .
 mv src/.env.example .env
 rm src -r -f
+rm requirements-dev.txt -r -f
 cd ..
 rm deploy.sh -f
