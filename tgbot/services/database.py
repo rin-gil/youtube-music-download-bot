@@ -70,3 +70,9 @@ class Database:
             downloads.append(row[1])
             searches.append(row[2])
         return BotStatisticsData(date=dates, downloads_counter=downloads, searches_counter=searches)
+
+    async def close(self) -> None:
+        """Closes the database connection pool"""
+        if self._pool:
+            await self._pool.close()
+            self._pool = None
