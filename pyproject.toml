@@ -2,7 +2,7 @@
 fail-under = 10
 ignore = ["CVS"]
 ignore-patterns = ["^\\.#"]
-init-hook="import sys; sys.path.append('.')"
+init-hook="import sys; sys.path.append('src')"
 jobs = 0
 limit-inference-results = 100
 persistent = true

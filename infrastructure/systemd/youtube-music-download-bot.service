@@ -1,0 +1,15 @@
+# Configuration for running the bot on a server as a systemd service
+[Unit]
+Description=YouTube Music Download Bot daemon
+After=network.target
+
+[Service]
+User=bot
+Group=bot
+Type=simple
+WorkingDirectory=/opt/youtube-music-download-bot
+ExecStart=/opt/youtube-music-download-bot/venv/bin/python /opt/youtube-music-download-bot/bot.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
