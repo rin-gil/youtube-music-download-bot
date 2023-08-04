@@ -12,7 +12,7 @@ from tgbot.config import MAX_DURATION
 from tgbot.keyboards.inline import create_download_kb
 from tgbot.middlewares.localization import i18n
 from tgbot.misc.states import UserInput
-from tgbot.services.database import database
+from tgbot.services.database import Database
 from tgbot.services.youtube import youtube, VideoInfo
 
 _ = i18n.gettext  # Alias for gettext method
@@ -20,7 +20,6 @@ _ = i18n.gettext  # Alias for gettext method
 
 async def if_user_sent_youtube_link(message: Message, state: FSMContext) -> None:
     """Handles the message if a user sent YouTube link"""
-    await database.increase_downloads_counter()
     user_lang_code: str = message.from_user.language_code
     await UserInput.Block.set()  # Block user input while the download is in progress
     bot_reply: Message = await message.reply(text="⏬ " + _("Downloading, wait a bit...", locale=user_lang_code))
@@ -31,6 +30,9 @@ async def if_user_sent_youtube_link(message: Message, state: FSMContext) -> None
         await message.reply_audio(audio=InputFile(path_to_audio_file))
         await message.bot.delete_message(chat_id=chat_id, message_id=bot_reply_id)
         os_remove(path_to_audio_file)
+
+        db: Database = message.bot.get("db")
+        await db.increase_downloads_counter()
     else:
         await message.bot.edit_message_text(
             text="❌ "
@@ -65,8 +67,10 @@ async def if_user_sent_link_not_to_youtube(message: Message) -> None:
 
 async def if_user_sent_text(message: Message, state: FSMContext) -> None:
     """Handles the message if a user sent text"""
-    await database.increase_searches_counter()
     await UserInput.Block.set()  # Block user actions while the search is in progress.
+
+    db: Database = message.bot.get("db")
+    await db.increase_searches_counter()
 
     user_lang_code: str = message.from_user.language_code
     chat_id: int = message.from_user.id

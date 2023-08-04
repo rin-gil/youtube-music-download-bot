@@ -8,7 +8,6 @@ from environs import Env
 
 
 _BASE_DIR: Path = Path(__file__).resolve().parent.parent
-DB_FILE: str = normpath(join(_BASE_DIR, "tgbot/db.sqlite3"))
 LOCALES_DIR: str = normpath(join(_BASE_DIR, "tgbot/locales"))
 TEMP_DIR: str = normpath(join(_BASE_DIR, "tgbot/temp"))
 LOG_FILE: str = join(_BASE_DIR, "youtube-music-download-bot.log")
@@ -16,6 +15,16 @@ BOT_LOGO: str = normpath(join(_BASE_DIR, "tgbot/assets/img/bot_logo.jpg"))
 STATS_BG_IMAGE: str = normpath(join(_BASE_DIR, "tgbot/assets/img/stats_bg.png"))
 
 MAX_DURATION: int = 900  # in seconds
+
+
+class DbConfig(NamedTuple):
+    """Database configuration"""
+
+    host: str
+    port: str
+    password: str
+    user: str
+    database: str
 
 
 class TgBot(NamedTuple):
@@ -29,10 +38,23 @@ class Config(NamedTuple):
     """Bot config"""
 
     tg_bot: TgBot
+    db: DbConfig
 
 
 def load_config() -> Config:
     """Loads tokens from environment variables"""
     env: Env = Env()
     env.read_env()
-    return Config(tg_bot=TgBot(token=env.str("BOT_TOKEN"), admin_ids=tuple(map(int, env.list("ADMINS")))))
+    return Config(
+        tg_bot=TgBot(
+            token=env.str("BOT_TOKEN"),
+            admin_ids=tuple(map(int, env.list("ADMINS"))),
+        ),
+        db=DbConfig(
+            host=env.str("POSTGRES_DB_HOST"),
+            port=env.str("POSTGRES_DB_PORT"),
+            password=env.str("POSTGRES_DB_PASSWORD"),
+            user=env.str("POSTGRES_DB_USER"),
+            database=env.str("POSTGRES_DB_NAME"),
+        ),
+    )

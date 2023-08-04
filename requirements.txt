@@ -1,7 +1,7 @@
 aiogram==2.25.1
-aiosqlite==0.19.0
+asyncpg==0.28.0
 environs==9.5.0
 imageio-ffmpeg==0.4.8
 matplotlib==3.7.2
-numpy==1.25.0
+numpy==1.25.2
 yt-dlp==2023.7.6

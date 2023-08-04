@@ -8,7 +8,7 @@ from aiogram.types import CallbackQuery, InputFile
 
 from tgbot.misc.states import UserInput
 from tgbot.middlewares.localization import i18n
-from tgbot.services.database import database
+from tgbot.services.database import Database
 from tgbot.services.youtube import youtube
 
 _ = i18n.gettext  # Alias for gettext method
@@ -16,7 +16,6 @@ _ = i18n.gettext  # Alias for gettext method
 
 async def if_user_clicks_download(call: CallbackQuery, state: FSMContext) -> None:
     """Handles clicks on the Download button in search results"""
-    await database.increase_downloads_counter()
     await UserInput.Block.set()  # Block user actions while the download is in progress.
 
     user_lang_code: str = call.from_user.language_code
@@ -41,6 +40,9 @@ async def if_user_clicks_download(call: CallbackQuery, state: FSMContext) -> Non
             )
             await call.bot.delete_message(chat_id=chat_id, message_id=data["bot_reply_id"])
             os_remove(path_to_audio_file)
+
+            db: Database = call.bot.get("db")
+            await db.increase_downloads_counter()
 
     # If the bot was restarted and now there is no data in RAM in state.proxy()
     except KeyError:
