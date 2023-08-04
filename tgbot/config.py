@@ -7,16 +7,6 @@ from typing import NamedTuple
 from environs import Env
 
 
-_BASE_DIR: Path = Path(__file__).resolve().parent.parent
-LOCALES_DIR: str = normpath(join(_BASE_DIR, "tgbot/locales"))
-TEMP_DIR: str = normpath(join(_BASE_DIR, "tgbot/temp"))
-LOG_FILE: str = join(_BASE_DIR, "youtube-music-download-bot.log")
-BOT_LOGO: str = normpath(join(_BASE_DIR, "tgbot/assets/img/bot_logo.jpg"))
-STATS_BG_IMAGE: str = normpath(join(_BASE_DIR, "tgbot/assets/img/stats_bg.png"))
-
-MAX_DURATION: int = 900  # in seconds
-
-
 class DbConfig(NamedTuple):
     """Database configuration"""
 
@@ -25,6 +15,16 @@ class DbConfig(NamedTuple):
     password: str
     user: str
     database: str
+
+
+class WebhookCredentials(NamedTuple):
+    """Represents credentials to use webhook"""
+
+    wh_host: str
+    wh_path: str
+    wh_token: str
+    app_host: str
+    app_port: int
 
 
 class TgBot(NamedTuple):
@@ -39,6 +39,20 @@ class Config(NamedTuple):
 
     tg_bot: TgBot
     db: DbConfig
+    webhook: WebhookCredentials | None
+
+
+# Change USE_WEBHOOK to True to use a webhook instead of long polling
+USE_WEBHOOK: bool = False
+
+_BASE_DIR: Path = Path(__file__).resolve().parent.parent
+LOCALES_DIR: str = normpath(join(_BASE_DIR, "tgbot/locales"))
+TEMP_DIR: str = normpath(join(_BASE_DIR, "tgbot/temp"))
+LOG_FILE: str = join(_BASE_DIR, "youtube-music-download-bot.log")
+BOT_LOGO: str = normpath(join(_BASE_DIR, "tgbot/assets/img/bot_logo.jpg"))
+STATS_BG_IMAGE: str = normpath(join(_BASE_DIR, "tgbot/assets/img/stats_bg.png"))
+
+MAX_DURATION: int = 900  # in seconds
 
 
 def load_config() -> Config:
@@ -57,4 +71,11 @@ def load_config() -> Config:
             user=env.str("POSTGRES_DB_USER"),
             database=env.str("POSTGRES_DB_NAME"),
         ),
+        webhook=WebhookCredentials(
+            wh_host=env.str("WEBHOOK_HOST"),
+            wh_path=env.str("WEBHOOK_PATH"),
+            wh_token=env.str("WEBHOOK_TOKEN"),
+            app_host=env.str("APP_HOST"),
+            app_port=env.int("APP_PORT"),
+        ) if USE_WEBHOOK else None
     )

@@ -1,9 +1,11 @@
 """Launches the bot"""
 
-from asyncio import run
+from functools import partial
 
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.utils.executor import start_polling, start_webhook
+from aiohttp import ClientSession
 
 from tgbot.config import Config, load_config
 from tgbot.filters.admin import AdminFilter
@@ -31,39 +33,70 @@ def register_all_filters(dp: Dispatcher) -> None:
 
 def register_all_handlers(dp: Dispatcher) -> None:
     """Registers handlers"""
-    register_admin(dp)
-    register_commands(dp)
-    register_messages(dp)
-    register_callbacks(dp)
-    register_errors(dp)
+    register_admin(dp=dp)
+    register_commands(dp=dp)
+    register_messages(dp=dp)
+    register_callbacks(dp=dp)
+    register_errors(dp=dp)
 
 
-async def main() -> None:
-    """Launches the bot"""
+async def on_startup(dp: Dispatcher, database: Database, config: Config) -> None:
+    """The functions that runs when the bot starts"""
+    await database.init()
+    await set_default_commands(dp)
+    if config.webhook:
+        await dp.bot.set_webhook(
+            url=f"{config.webhook.wh_host}/{config.webhook.wh_path}",
+            drop_pending_updates=False,
+            secret_token=config.webhook.wh_token,
+        )
+
+
+async def on_shutdown(dp: Dispatcher, database: Database, config: Config) -> None:
+    """The functions that runs when the bot is stopped"""
+    await dp.storage.close()
+    await dp.storage.wait_closed()
+    await database.close()
+    if config.webhook:
+        await dp.bot.delete_webhook()
+        session: ClientSession = await dp.bot.get_session()
+        await session.close()
+
+
+def start_bot() -> None:
+    """Starts the bot in long polling mode"""
     config: Config = load_config()
     bot: Bot = Bot(token=config.tg_bot.token, parse_mode="HTML")
     dp: Dispatcher = Dispatcher(bot=bot, storage=MemoryStorage())
     database: Database = Database(db_config=config.db)
     bot["config"] = config
     bot["db"] = database
-    try:  # Start bot
-        register_all_middlewares(dp)
-        register_all_filters(dp)
-        register_all_handlers(dp)
-        await database.init()
-        await set_default_commands(dp)
-        await dp.start_polling()
-    finally:  # Stop bot
-        await dp.storage.close()
-        await dp.storage.wait_closed()
-        session = await bot.get_session()
-        await session.close()
+
+    register_all_middlewares(dp=dp)
+    register_all_filters(dp=dp)
+    register_all_handlers(dp=dp)
+
+    if config.webhook:
+        start_webhook(
+            dispatcher=dp,
+            webhook_path=f"/{config.webhook.wh_path}",
+            on_startup=partial(on_startup, database=database, config=config),
+            on_shutdown=partial(on_shutdown, database=database, config=config),
+            host=config.webhook.app_host,
+            port=config.webhook.app_port,
+        )
+    else:
+        start_polling(
+            dispatcher=dp,
+            on_startup=partial(on_startup, database=database, config=config),
+            on_shutdown=partial(on_shutdown, database=database, config=config),
+        )
 
 
 if __name__ == "__main__":
     logger.info("Starting bot")
     try:
-        run(main())
+        start_bot()
     except (KeyboardInterrupt, SystemExit):
         pass
     except Exception as ex:
