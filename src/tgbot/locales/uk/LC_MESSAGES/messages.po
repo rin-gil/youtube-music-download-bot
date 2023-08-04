@@ -1,172 +1,170 @@
 # Ukrainian translations for YoutubeMusicDownloadBot.
-# Copyright (C) 2022 Ringil
-# This file is distributed under the same license as the
-# YoutubeMusicDownloadBot project.
+# Copyright (C) 2023 Ringil
+# This file is distributed under the same license as the YoutubeMusicDownloadBot project.
 # Ringil <e.ringil@proton.me>, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: YoutubeMusicDownloadBot v1.4.0\n"
+"Project-Id-Version: YoutubeMusicDownloadBot 1.0.0\n"
 "Report-Msgid-Bugs-To: e.ringil@proton.me\n"
-"POT-Creation-Date: 2023-04-26 08:15+0300\n"
-"PO-Revision-Date: 2023-08-04 17:36+0300\n"
+"POT-Creation-Date: 2023-08-04 18:41+0300\n"
+"PO-Revision-Date: 2023-08-04 18:45+0300\n"
 "Last-Translator: Ringil <e.ringil@proton.me>\n"
 "Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: tgbot/handlers/admin.py:24
+#: src/tgbot/handlers/admin.py:24
 msgid "Bot statistics by months"
 msgstr "Статистика бота по місяцях"
 
-#: tgbot/handlers/callbacks.py:28 tgbot/handlers/messages.py:25
+#: src/tgbot/handlers/callbacks.py:28 src/tgbot/handlers/messages.py:25
 msgid "Downloading, wait a bit..."
 msgstr "Завантажую, зачекайте трохи..."
 
-#: tgbot/handlers/callbacks.py:49
+#: src/tgbot/handlers/callbacks.py:49
 msgid "This link is out of date"
 msgstr "Це посилання застаріле"
 
-#: tgbot/handlers/commands.py:16
+#: src/tgbot/handlers/commands.py:16
 msgid "Write me the name of the song or drop me a link to video from"
 msgstr "Напиши мені назву пісні або скинь посилання на відео з"
 
-#: tgbot/handlers/commands.py:26
+#: src/tgbot/handlers/commands.py:26
 msgid "I can download songs from"
 msgstr "Я можу завантажувати пісні з"
 
-#: tgbot/handlers/commands.py:28
+#: src/tgbot/handlers/commands.py:28
 msgid "Write me the name of the song or drop me a link to the video"
 msgstr "Напиши мені назву пісні або скинь посилання на відео"
 
-#: tgbot/handlers/errors.py:31
+#: src/tgbot/handlers/errors.py:31
 msgid "Unexpected error. We will fix it in the near future."
 msgstr "Несподівана помилка. Ми виправимо її найближчим часом."
 
-#: tgbot/handlers/messages.py:39
+#: src/tgbot/handlers/messages.py:39
 msgid "Failed to download an audio file"
 msgstr "Не вдалося завантажити аудіофайл"
 
-#: tgbot/handlers/messages.py:41
+#: src/tgbot/handlers/messages.py:41
 msgid "Possible reasons:"
 msgstr "Можливі причини:"
 
-#: tgbot/handlers/messages.py:44
+#: src/tgbot/handlers/messages.py:44
 msgid "video is unavailable"
 msgstr "відео недоступне"
 
-#: tgbot/handlers/messages.py:47
+#: src/tgbot/handlers/messages.py:47
 msgid "video with limited access"
 msgstr "відео з обмеженим доступом"
 
-#: tgbot/handlers/messages.py:50
+#: src/tgbot/handlers/messages.py:50
 msgid "this is a live broadcast"
 msgstr "це пряма трансляція"
 
-#: tgbot/handlers/messages.py:53
+#: src/tgbot/handlers/messages.py:53
 msgid "video is longer than"
 msgstr "відео довше, ніж"
 
-#: tgbot/handlers/messages.py:55
+#: src/tgbot/handlers/messages.py:55
 msgid "seconds"
 msgstr "секунд"
 
-#: tgbot/handlers/messages.py:65
+#: src/tgbot/handlers/messages.py:65
 msgid "It doesn't look like a YouTube link"
 msgstr "Це не схоже на посилання з YouTube"
 
-#: tgbot/handlers/messages.py:91
+#: src/tgbot/handlers/messages.py:91
 msgid "Looking, wait a bit..."
 msgstr "Шукаю, почекай трохи..."
 
-#: tgbot/handlers/messages.py:98
+#: src/tgbot/handlers/messages.py:98
 msgid "Look what I found"
 msgstr "Поглянь, що я знайшов"
 
-#: tgbot/handlers/messages.py:118
+#: src/tgbot/handlers/messages.py:118
 msgid "I didn't find anything"
 msgstr "Я нічого не знайшов"
 
-#: tgbot/handlers/messages.py:120
+#: src/tgbot/handlers/messages.py:120
 msgid "Try looking for something else"
 msgstr "Спробуй пошукати щось інше"
 
-#: tgbot/keyboards/inline.py:15
+#: src/tgbot/keyboards/inline.py:15
 msgid "Download"
 msgstr "Скачати"
 
-#: tgbot/misc/commands.py:17
+#: src/tgbot/misc/commands.py:17
 msgid "Start"
 msgstr "Старт"
 
-#: tgbot/misc/commands.py:18
+#: src/tgbot/misc/commands.py:18
 msgid "Bot info"
 msgstr "Інформація про бота"
 
-#: tgbot/services/statistics.py:41
+#: src/tgbot/services/statistics.py:41
 msgid "Jan"
 msgstr "Січ"
 
-#: tgbot/services/statistics.py:42
+#: src/tgbot/services/statistics.py:42
 msgid "Feb"
 msgstr "Лют"
 
-#: tgbot/services/statistics.py:43
+#: src/tgbot/services/statistics.py:43
 msgid "Mar"
 msgstr "Бер"
 
-#: tgbot/services/statistics.py:44
+#: src/tgbot/services/statistics.py:44
 msgid "Apr"
 msgstr "Кві"
 
-#: tgbot/services/statistics.py:45
+#: src/tgbot/services/statistics.py:45
 msgid "May"
 msgstr "Тра"
 
-#: tgbot/services/statistics.py:46
+#: src/tgbot/services/statistics.py:46
 msgid "Jun"
 msgstr "Чер"
 
-#: tgbot/services/statistics.py:47
+#: src/tgbot/services/statistics.py:47
 msgid "Jul"
 msgstr "Лип"
 
-#: tgbot/services/statistics.py:48
+#: src/tgbot/services/statistics.py:48
 msgid "Aug"
 msgstr "Сер"
 
-#: tgbot/services/statistics.py:49
+#: src/tgbot/services/statistics.py:49
 msgid "Sep"
 msgstr "Вер"
 
-#: tgbot/services/statistics.py:50
+#: src/tgbot/services/statistics.py:50
 msgid "Oct"
 msgstr "Жов"
 
-#: tgbot/services/statistics.py:51
+#: src/tgbot/services/statistics.py:51
 msgid "Nov"
 msgstr "Лис"
 
-#: tgbot/services/statistics.py:52
+#: src/tgbot/services/statistics.py:52
 msgid "Dec"
 msgstr "Гру"
 
-#: tgbot/services/statistics.py:77
+#: src/tgbot/services/statistics.py:77
 msgid "Downloads"
 msgstr "Завантаження"
 
-#: tgbot/services/statistics.py:78
+#: src/tgbot/services/statistics.py:78
 msgid "Searches"
 msgstr "Пошуки"
 
-#: tgbot/services/statistics.py:95
+#: src/tgbot/services/statistics.py:95
 msgid "Chart of bot usage by date"
 msgstr "Графік використання бота за датами"
 
-#: tgbot/services/youtube.py:70
+#: src/tgbot/services/youtube.py:70
 msgid "Duration"
 msgstr "Тривалість"

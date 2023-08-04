@@ -139,10 +139,6 @@ coverage.xml
 .pytest_cache/
 cover/
 
-# Translations
-*.mo
-*.pot
-
 # Django stuff:
 local_settings.py
 db.sqlite3

@@ -1,0 +1,170 @@
+# Russian translations for YoutubeMusicDownloadBot.
+# Copyright (C) 2023 Ringil
+# This file is distributed under the same license as the YoutubeMusicDownloadBot project.
+# Ringil <e.ringil@proton.me>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: YoutubeMusicDownloadBot 1.0.0\n"
+"Report-Msgid-Bugs-To: e.ringil@proton.me\n"
+"POT-Creation-Date: 2023-08-04 18:41+0300\n"
+"PO-Revision-Date: 2023-08-04 18:45+0300\n"
+"Last-Translator: Ringil <e.ringil@proton.me>\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: src/tgbot/handlers/admin.py:24
+msgid "Bot statistics by months"
+msgstr "Статистика бота по месяцам"
+
+#: src/tgbot/handlers/callbacks.py:28 src/tgbot/handlers/messages.py:25
+msgid "Downloading, wait a bit..."
+msgstr "Скачиваю, подожди немного..."
+
+#: src/tgbot/handlers/callbacks.py:49
+msgid "This link is out of date"
+msgstr "Эта ссылка устарела"
+
+#: src/tgbot/handlers/commands.py:16
+msgid "Write me the name of the song or drop me a link to video from"
+msgstr "Напиши мне название песни или скинь мне ссылку на видео с"
+
+#: src/tgbot/handlers/commands.py:26
+msgid "I can download songs from"
+msgstr "Я могу скачать песни с"
+
+#: src/tgbot/handlers/commands.py:28
+msgid "Write me the name of the song or drop me a link to the video"
+msgstr "Напиши мне название песни или скинь ссылку на видео"
+
+#: src/tgbot/handlers/errors.py:31
+msgid "Unexpected error. We will fix it in the near future."
+msgstr "Неожиданная ошибка. Мы исправим ее в ближайшем будущем."
+
+#: src/tgbot/handlers/messages.py:39
+msgid "Failed to download an audio file"
+msgstr "Не удалось загрузить аудиофайл"
+
+#: src/tgbot/handlers/messages.py:41
+msgid "Possible reasons:"
+msgstr "Возможные причины:"
+
+#: src/tgbot/handlers/messages.py:44
+msgid "video is unavailable"
+msgstr "видео недоступно"
+
+#: src/tgbot/handlers/messages.py:47
+msgid "video with limited access"
+msgstr "видео с ограниченным доступом"
+
+#: src/tgbot/handlers/messages.py:50
+msgid "this is a live broadcast"
+msgstr "это прямая трансляция"
+
+#: src/tgbot/handlers/messages.py:53
+msgid "video is longer than"
+msgstr "видео длиннее, чем"
+
+#: src/tgbot/handlers/messages.py:55
+msgid "seconds"
+msgstr "секунд"
+
+#: src/tgbot/handlers/messages.py:65
+msgid "It doesn't look like a YouTube link"
+msgstr "Это не похоже на ссылку с YouTube"
+
+#: src/tgbot/handlers/messages.py:91
+msgid "Looking, wait a bit..."
+msgstr "Ищу, подожди немного..."
+
+#: src/tgbot/handlers/messages.py:98
+msgid "Look what I found"
+msgstr "Смотри, что я нашел"
+
+#: src/tgbot/handlers/messages.py:118
+msgid "I didn't find anything"
+msgstr "Я ничего не нашел"
+
+#: src/tgbot/handlers/messages.py:120
+msgid "Try looking for something else"
+msgstr "Попробуй поискать что-то другое"
+
+#: src/tgbot/keyboards/inline.py:15
+msgid "Download"
+msgstr "Скачать"
+
+#: src/tgbot/misc/commands.py:17
+msgid "Start"
+msgstr "Старт"
+
+#: src/tgbot/misc/commands.py:18
+msgid "Bot info"
+msgstr "Информация о боте"
+
+#: src/tgbot/services/statistics.py:41
+msgid "Jan"
+msgstr "Янв"
+
+#: src/tgbot/services/statistics.py:42
+msgid "Feb"
+msgstr "Фев"
+
+#: src/tgbot/services/statistics.py:43
+msgid "Mar"
+msgstr "Мар"
+
+#: src/tgbot/services/statistics.py:44
+msgid "Apr"
+msgstr "Апр"
+
+#: src/tgbot/services/statistics.py:45
+msgid "May"
+msgstr "Май"
+
+#: src/tgbot/services/statistics.py:46
+msgid "Jun"
+msgstr "Июн"
+
+#: src/tgbot/services/statistics.py:47
+msgid "Jul"
+msgstr "Июл"
+
+#: src/tgbot/services/statistics.py:48
+msgid "Aug"
+msgstr "Авг"
+
+#: src/tgbot/services/statistics.py:49
+msgid "Sep"
+msgstr "Сен"
+
+#: src/tgbot/services/statistics.py:50
+msgid "Oct"
+msgstr "Окт"
+
+#: src/tgbot/services/statistics.py:51
+msgid "Nov"
+msgstr "Ноя"
+
+#: src/tgbot/services/statistics.py:52
+msgid "Dec"
+msgstr "Дек"
+
+#: src/tgbot/services/statistics.py:77
+msgid "Downloads"
+msgstr "Загрузки"
+
+#: src/tgbot/services/statistics.py:78
+msgid "Searches"
+msgstr "Поиски"
+
+#: src/tgbot/services/statistics.py:95
+msgid "Chart of bot usage by date"
+msgstr "Диаграмма использования бота по датам"
+
+#: src/tgbot/services/youtube.py:70
+msgid "Duration"
+msgstr "Продолжительность"

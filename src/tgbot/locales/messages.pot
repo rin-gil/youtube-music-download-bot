@@ -1,0 +1,169 @@
+# Translations template for YoutubeMusicDownloadBot.
+# Copyright (C) 2023 Ringil
+# This file is distributed under the same license as the YoutubeMusicDownloadBot project.
+# Ringil <e.ringil@proton.me>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: YoutubeMusicDownloadBot 1.0.0\n"
+"Report-Msgid-Bugs-To: e.ringil@proton.me\n"
+"POT-Creation-Date: 2023-08-04 18:41+0300\n"
+"PO-Revision-Date: 2023-08-04 18:41+0300\n"
+"Last-Translator: Ringil <e.ringil@proton.me>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: src/tgbot/handlers/admin.py:24
+msgid "Bot statistics by months"
+msgstr ""
+
+#: src/tgbot/handlers/callbacks.py:28 src/tgbot/handlers/messages.py:25
+msgid "Downloading, wait a bit..."
+msgstr ""
+
+#: src/tgbot/handlers/callbacks.py:49
+msgid "This link is out of date"
+msgstr ""
+
+#: src/tgbot/handlers/commands.py:16
+msgid "Write me the name of the song or drop me a link to video from"
+msgstr ""
+
+#: src/tgbot/handlers/commands.py:26
+msgid "I can download songs from"
+msgstr ""
+
+#: src/tgbot/handlers/commands.py:28
+msgid "Write me the name of the song or drop me a link to the video"
+msgstr ""
+
+#: src/tgbot/handlers/errors.py:31
+msgid "Unexpected error. We will fix it in the near future."
+msgstr ""
+
+#: src/tgbot/handlers/messages.py:39
+msgid "Failed to download an audio file"
+msgstr ""
+
+#: src/tgbot/handlers/messages.py:41
+msgid "Possible reasons:"
+msgstr ""
+
+#: src/tgbot/handlers/messages.py:44
+msgid "video is unavailable"
+msgstr ""
+
+#: src/tgbot/handlers/messages.py:47
+msgid "video with limited access"
+msgstr ""
+
+#: src/tgbot/handlers/messages.py:50
+msgid "this is a live broadcast"
+msgstr ""
+
+#: src/tgbot/handlers/messages.py:53
+msgid "video is longer than"
+msgstr ""
+
+#: src/tgbot/handlers/messages.py:55
+msgid "seconds"
+msgstr ""
+
+#: src/tgbot/handlers/messages.py:65
+msgid "It doesn't look like a YouTube link"
+msgstr ""
+
+#: src/tgbot/handlers/messages.py:91
+msgid "Looking, wait a bit..."
+msgstr ""
+
+#: src/tgbot/handlers/messages.py:98
+msgid "Look what I found"
+msgstr ""
+
+#: src/tgbot/handlers/messages.py:118
+msgid "I didn't find anything"
+msgstr ""
+
+#: src/tgbot/handlers/messages.py:120
+msgid "Try looking for something else"
+msgstr ""
+
+#: src/tgbot/keyboards/inline.py:15
+msgid "Download"
+msgstr ""
+
+#: src/tgbot/misc/commands.py:17
+msgid "Start"
+msgstr ""
+
+#: src/tgbot/misc/commands.py:18
+msgid "Bot info"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:41
+msgid "Jan"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:42
+msgid "Feb"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:43
+msgid "Mar"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:44
+msgid "Apr"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:45
+msgid "May"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:46
+msgid "Jun"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:47
+msgid "Jul"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:48
+msgid "Aug"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:49
+msgid "Sep"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:50
+msgid "Oct"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:51
+msgid "Nov"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:52
+msgid "Dec"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:77
+msgid "Downloads"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:78
+msgid "Searches"
+msgstr ""
+
+#: src/tgbot/services/statistics.py:95
+msgid "Chart of bot usage by date"
+msgstr ""
+
+#: src/tgbot/services/youtube.py:70
+msgid "Duration"
+msgstr ""
