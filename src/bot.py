@@ -64,7 +64,7 @@ async def on_shutdown(dp: Dispatcher, database: Database, config: Config) -> Non
 
 
 def start_bot() -> None:
-    """Starts the bot in long polling mode"""
+    """Starts the bot"""
     config: Config = load_config()
     bot: Bot = Bot(token=config.tg_bot.token, parse_mode="HTML")
     dp: Dispatcher = Dispatcher(bot=bot, storage=MemoryStorage())
