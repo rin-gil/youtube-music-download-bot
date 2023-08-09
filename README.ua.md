@@ -24,6 +24,9 @@
     <a href="https://pypi.org/project/numpy/1.25.2/">
         <img src="https://img.shields.io/badge/numpy-v1.25.2-informational" alt="numpy version">
     </a>
+    <a href="https://pypi.org/project/redis/4.6.0/">
+        <img src="https://img.shields.io/badge/redis-v4.6.0-informational" alt="redis version">
+    </a>
     <a href="https://pypi.org/project/yt-dlp/22023.7.6/">
         <img src="https://img.shields.io/badge/yt_dlp-v2023.7.6-informational" alt="yt-dlp version">
     </a>

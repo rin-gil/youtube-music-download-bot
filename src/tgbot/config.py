@@ -17,6 +17,15 @@ class DbConfig(NamedTuple):
     database: str
 
 
+class RedisConfig(NamedTuple):
+    """Redis database configuration"""
+
+    host: str
+    port: int
+    database_index: int
+    password: str
+
+
 class WebhookCredentials(NamedTuple):
     """Represents credentials to use webhook"""
 
@@ -39,11 +48,15 @@ class Config(NamedTuple):
 
     tg_bot: TgBot
     db: DbConfig
+    redis: RedisConfig | None
     webhook: WebhookCredentials | None
 
 
 # Change USE_WEBHOOK to True to use a webhook instead of long polling
 USE_WEBHOOK: bool = False
+
+# Change USE_REDIS to True to use redis storage for FSM instead of memory
+USE_REDIS: bool = False
 
 _BASE_DIR: Path = Path(__file__).resolve().parent.parent
 LOCALES_DIR: str = normpath(join(_BASE_DIR, "tgbot/locales"))
@@ -71,11 +84,25 @@ def load_config() -> Config:
             user=env.str("POSTGRES_DB_USER"),
             database=env.str("POSTGRES_DB_NAME"),
         ),
-        webhook=WebhookCredentials(
-            wh_host=env.str("WEBHOOK_HOST"),
-            wh_path=env.str("WEBHOOK_PATH"),
-            wh_token=env.str("WEBHOOK_TOKEN"),
-            app_host=env.str("APP_HOST"),
-            app_port=env.int("APP_PORT"),
-        ) if USE_WEBHOOK else None
+        redis=(
+            RedisConfig(
+                host=env.str("REDIS_HOST"),
+                port=env.int("REDIS_PORT"),
+                database_index=env.int("REDIS_DB_INDEX"),
+                password=env.str("REDIS_DB_PASS"),
+            )
+            if USE_REDIS
+            else None
+        ),
+        webhook=(
+            WebhookCredentials(
+                wh_host=env.str("WEBHOOK_HOST"),
+                wh_path=env.str("WEBHOOK_PATH"),
+                wh_token=env.str("WEBHOOK_TOKEN"),
+                app_host=env.str("APP_HOST"),
+                app_port=env.int("APP_PORT"),
+            )
+            if USE_WEBHOOK
+            else None
+        ),
     )
