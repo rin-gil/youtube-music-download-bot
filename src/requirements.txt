@@ -3,7 +3,7 @@ aiohttp==3.8.5
 asyncpg==0.28.0
 environs==9.5.0
 imageio-ffmpeg==0.4.8
-matplotlib==3.7.2
+matplotlib==3.8.0
 numpy==1.25.2
 redis==4.6.0
 yt-dlp==2023.7.6
