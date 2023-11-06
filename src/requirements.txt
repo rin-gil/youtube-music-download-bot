@@ -1,6 +1,6 @@
 aiogram==2.25.1
 aiohttp==3.8.5
-asyncpg==0.28.0
+asyncpg==0.29.0
 environs==9.5.0
 imageio-ffmpeg==0.4.8
 matplotlib==3.7.2
