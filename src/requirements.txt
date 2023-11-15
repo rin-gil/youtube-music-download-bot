@@ -6,4 +6,4 @@ imageio-ffmpeg==0.4.8
 matplotlib==3.7.2
 numpy==1.25.2
 redis==4.6.0
-yt-dlp==2023.7.6
+yt-dlp==2023.11.14
